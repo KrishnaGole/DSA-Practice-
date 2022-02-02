@@ -29,11 +29,11 @@ namespace ArrayPractice
             //IntPtr pObj = gch.AddrOfPinnedObject();
             //Console.WriteLine(pObj.ToString());
 
-            List<List<int>> B = new List<List<int>>();
-            B.Add(new List<int>() { 1, 2, 10 });
-            B.Add(new List<int>() { 2, 3, 20 });
-            B.Add(new List<int>() { 2, 5, 25 });
-            BeggarsOutsideTemple(5, B);
+            //List<List<int>> B = new List<List<int>>();
+            //B.Add(new List<int>() { 1, 2, 10 });
+            //B.Add(new List<int>() { 2, 3, 20 });
+            //B.Add(new List<int>() { 2, 5, 25 });
+            //BeggarsOutsideTemple(5, B);
             // List<int> vs = new List<int>() { 15, 20, 20, 15, 10, 30, 45 };
             // Newpaper1(2, new List<int>() { 1,0,0,0,0,0,0 });
             //int[,] arr = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 } };
@@ -43,6 +43,9 @@ namespace ArrayPractice
             //ForVsWhile();
             //AllOccurences("Apple Apple ususuu Apple usuusus", "Apple");
             //RotateAMatrix90(new List<List<int>>() { new List<int>() { 1, 2, 3, 4}, new List<int>() { 5,6,7,8 } , new List<int>() { 9,10,11,12 } , new List<int>() { 13,14,15,16 } });
+            List<int> vs = new List<int>() { 8986143, -5026827, 5591744, 4058312, 2210051, 5680315, -5251946, -607433, 1633303, 2186575 };
+
+            Solve(vs);
             Console.ReadLine();
         }
 
@@ -62,12 +65,12 @@ namespace ArrayPractice
                 if (arr[i] == n)
                 {
                     vs[count] = i;
-                    count++;    
+                    count++;
                 }
 
             }
             vs[count] = -1;
-            
+
             return vs;
         }
 
@@ -75,13 +78,13 @@ namespace ArrayPractice
         {
             int N = B.Count();
             int[] ans = new int[A];
-            for (int i = 0;i < N; i++)
+            for (int i = 0; i < N; i++)
             {
                 int leftIndex = B[i][0];
                 int rightIndex = B[i][1];
                 int val = B[i][2];
                 ans[leftIndex - 1] += val;
-                if(rightIndex < A)
+                if (rightIndex < A)
                 {
                     ans[rightIndex] -= val;
                 }
@@ -138,8 +141,8 @@ namespace ArrayPractice
         {
             //int count = 1;
             for (int i = 0; i < arr.GetLength(1); i++)
-            {   
-                if(i % 2 == 0)
+            {
+                if (i % 2 == 0)
                 {
                     for (int j = 0; j < arr.GetLength(0); j++)
                     {
@@ -148,20 +151,20 @@ namespace ArrayPractice
                 }
                 else
                 {
-                   
+
                     for (int j = arr.GetLength(0) - 1; j >= 0; j--)
                     {
                         Console.Write(arr[j, i] + " ");
                     }
                 }
-              // count++; 
-               
+                // count++; 
+
             }
         }
 
         public static int firstMissingPositive(List<int> A)
         {
-           int missingNum = 0;int temp = 0;
+            int missingNum = 0; int temp = 0;
             for (int i = 0; i < A.Count; i++)
             {
                 if (A[i] <= A.Count && A[i] != i + 1 && A[i] > 0 && A[A[i] - 1] != A[i])
@@ -174,12 +177,12 @@ namespace ArrayPractice
                     A[i] = A[A[i] - 1];
                     A[temp - 1] = temp;
                     i--;
-                    
+
                 }
             }
             for (int i = 0; i < A.Count; i++)
             {
-                if (A[i] != i+1)
+                if (A[i] != i + 1)
                 {
                     missingNum = i + 1;
                     break;
@@ -218,7 +221,7 @@ namespace ArrayPractice
         static void RotateAMatrix90(List<List<int>> vs)
         {
             int length = vs.Count;
-            for (int i = 0;i < length/2; i++)
+            for (int i = 0; i < length / 2; i++)
             {
                 for (int j = i; j < length - i - 1; j++)
                 {
@@ -230,6 +233,45 @@ namespace ArrayPractice
 
                 }
             }
+        }
+
+        /// <summary>
+        ///Print All subArray
+        /// </summary>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public static List<int> Solve(List<int> A)
+        {
+            int flag = 0;
+            List<int> vs = new List<int>();
+            for (int i = 0; i < A.Count(); i++)
+            {
+                for (int j = i; j < A.Count(); j++)
+                {
+                    flag = 0;
+                    for (int k = i; k <= j; k++)
+                    {
+                        if (A[k] < 0)
+                        {
+                            flag = 1;
+                            i = k;
+                            j = k;
+                            break;
+                        }
+                    }
+                    if (flag == 0 && vs.Count() < j - i + 1)
+                    {
+                        vs = A.GetRange(i, j - i + 1);
+                    }
+                    else if(flag == 1)
+                    {
+                        break;
+                    }
+                }
+            }
+            return vs;
+
+
         }
     }
 }

@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrefixArray", "PrefixArray\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitwiseOperatorsConsoleApp", "BitwiseOperatorsConsoleApp\BitwiseOperatorsConsoleApp.csproj", "{AD91BA1F-074D-47AD-B4BE-AB3D9CCF0427}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModulerOperator", "ModulerOperator\ModulerOperator.csproj", "{63942885-5239-42FF-A2C4-62D3EAFF1DBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{AD91BA1F-074D-47AD-B4BE-AB3D9CCF0427}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD91BA1F-074D-47AD-B4BE-AB3D9CCF0427}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD91BA1F-074D-47AD-B4BE-AB3D9CCF0427}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63942885-5239-42FF-A2C4-62D3EAFF1DBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63942885-5239-42FF-A2C4-62D3EAFF1DBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63942885-5239-42FF-A2C4-62D3EAFF1DBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63942885-5239-42FF-A2C4-62D3EAFF1DBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

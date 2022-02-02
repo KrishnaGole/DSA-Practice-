@@ -12,7 +12,11 @@ namespace BitwiseOperatorsConsoleApp
         {
             //singleNumber(new List<int>() { 4, 5, 6, 7, 4, 5, 6 });
             //numSetBits(11);
-            solve(3);
+            //Solve(3);
+            //Solve1(new List<int>() { 1, 2, 3, 1, 2, 4 });
+            List<int> vs = new List<int>();
+
+            Solve2(3);
         }
 
         /// <summary>
@@ -22,7 +26,7 @@ namespace BitwiseOperatorsConsoleApp
         /// </summary>
         /// <param name="A"></param>
         /// <returns></returns>
-        public static int singleNumber(List<int> A)
+        public static int SingleNumber(List<int> A)
         {
             int xor = A[0];
             int length = A.Count();
@@ -39,7 +43,7 @@ namespace BitwiseOperatorsConsoleApp
         /// </summary>
         /// <param name="A"></param>
         /// <returns></returns>
-        public static int numSetBits(int A)
+        public static int NumSetBits(int A)
         {
             int count = 0;
             while (A != 0)
@@ -50,10 +54,101 @@ namespace BitwiseOperatorsConsoleApp
             return count;
         }
 
-        public static long solve(long A)
+        public static int Solve(int A)
         {
-            long temp = 1 << 26;
-            return 0;
+            int count = 0;
+            while(A > 0)
+            {
+                if((A & 1) == 1)
+                {
+                    count++;
+                }
+                A >>= 1;
+
+            }
+            return count;
+
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public static List<int> Solve(List<int> A)
+        {
+            int xor = 0;
+            int n = A.Count();
+            int mask = 0;
+            for (int i = 0; i < n; i++)
+            {
+                xor ^= A[i];
+            }
+            mask = (xor & (xor - 1)) ^ xor;
+            int a = 0, b = 0;
+            for (int i = 0; i < n; i++)
+            {
+                if ((A[i] & mask) != 0)
+                {
+                    a = a ^ A[i];
+                }
+                else
+                {
+                    b = b ^ A[i];
+                }
+            }
+
+            return new List<int>() { Math.Min(a, b), Math.Max(a, b) };
+        }
+
+        /// <summary>
+        /// Single Number III
+        /// </summary>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public static List<int> Solve1(List<int> A)
+        {
+            int xor = 0;
+            int n = A.Count();
+            int mask = 0;
+            for (int i = 0; i < n; i++)
+            {
+                xor ^= A[i];
+            }
+            mask = (xor & (xor - 1)) ^ xor;
+            int a = 0, b = 0;
+            for (int i = 0; i < n; i++)
+            {
+                if ((A[i] & mask) != 0)
+                {
+                    a = a ^ A[i];
+                }
+                else
+                {
+                    b = b ^ A[i];
+                }
+            }
+
+            return new List<int>() { Math.Min(a, b), Math.Max(a, b) };
+        }
+
+        /// <summary>
+        /// Reverse Bits
+        /// </summary>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public static long Solve2(long A)
+        {
+            long ans = 0;
+            for (int i = 0; i <= 32; i++)
+            {
+                if (((A >> i) & 1) == 1)
+                {
+                    ans = ans + ((long)1 << (31 - i));
+                }
+            }
+            return ans;
 
         }
     }

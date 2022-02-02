@@ -18,7 +18,10 @@ namespace StringPractice
             // Console.WriteLine(TrimFromEnd("**kris**h**")); 
             // Console.WriteLine(Solve("meayl"));  
             //Console.WriteLine(NumJewelsInStones("z","ZZ"));
-            addBinary("1", "1");
+            //AddBinary("1", "1");
+            //List<List<string>> vs = new List<List<string>>() { new List<string>() { "phone", "blue", "pixel" }, new List<string>() { "computer", "silver", "lenovo" }, new List<string>() { "phone", "gold", "iphone" } };
+            //CountMatches(vs, "color", "silver");
+            var result = (1 << 5) % 7;
             Console.ReadLine();
 
         }
@@ -142,7 +145,7 @@ namespace StringPractice
         /// <param name="A"></param>
         /// <param name="B"></param>
         /// <returns></returns>
-        public static string addBinary(string A, string B)
+        public static string AddBinary(string A, string B)
         {
             StringBuilder b = new StringBuilder();
             StringBuilder a = new StringBuilder();
@@ -185,6 +188,32 @@ namespace StringPractice
                 result.Append(ans[i]);
             }
             return result.ToString();
+        }
+
+        /// <summary>
+        /// Count Items Matching a Rule
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="ruleKey"></param>
+        /// <param name="ruleValue"></param>
+        /// <returns></returns>
+        public static int CountMatches(List<List<string>> items, string ruleKey, string ruleValue)
+        {
+            int count = 0;
+            int n = items.Count();
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if ((ruleKey == "type" && items[i][j] == ruleValue) ||
+                      (ruleKey == "color" && items[i][j] == ruleValue) ||
+                      (ruleKey == "name" && items[i][j] == ruleValue))
+                    {
+                        count++;
+                    }
+                }
+            }
+            return count;
         }
     }
 }
