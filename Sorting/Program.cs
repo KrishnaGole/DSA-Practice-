@@ -13,8 +13,13 @@ namespace Sorting
             //List<int> vs = new List<int>() {1,2,9,4,5,6 };
             //BubbleSort(vs);
             //Count(new List<int>() { 2, 1, 4, 3, 2 });
-            kthsmallest(new List<int>() { 8, 16, 80, 55, 32, 8, 38, 40, 65, 18, 15, 45, 50, 38, 54, 52, 23, 74, 81, 42, 28, 16, 66, 35, 91, 36, 44, 9, 85, 58, 59, 49, 75, 20, 87, 60, 17, 11, 39, 62, 20, 17, 46, 26, 81, 92 }, 9);
-           // Console.WriteLine(checkSorted(vs));
+            //kthsmallest(new List<int>() { 8, 16, 80, 55, 32, 8, 38, 40, 65, 18, 15, 45, 50, 38, 54, 52, 23, 74, 81, 42, 28, 16, 66, 35, 91, 36, 44, 9, 85, 58, 59, 49, 75, 20, 87, 60, 17, 11, 39, 62, 20, 17, 46, 26, 81, 92 }, 9);
+            // Console.WriteLine(checkSorted(vs));
+            //ElementRemoval(new List<int>() { 3, 5, 1, -3 });
+            //LargestNum(new List<int>() { 8,89 });
+            QuickSorting quickSorting = new QuickSorting();
+            List<int> vs = new List<int>() { 10, 7, 8, 9, 1, 5 };
+             quickSorting.QuickSort(vs, 0, vs.Count() - 1);
             Console.ReadLine();
         }
 
@@ -132,5 +137,108 @@ namespace Sorting
             return -1;
         }
 
+
+        /// <summary>
+        /// Elements Removal
+        /// </summary>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public static int ElementRemoval(List<int> A)
+        {
+            int n = A.Count();
+            int ans = 0;
+            A = A.OrderByDescending(x => x).ToList();
+            for(int i = 0; i < n; i++)
+            {
+                ans += A[i] * (i + 1);
+            }
+            return ans;
+        }
+
+
+        public static string LargestNum(List<int> A)
+        {
+            int n = A.Count();
+           
+            StringBuilder ans = new StringBuilder();
+            A.Sort(new CustomNumberComparer());
+            for(int i = 0; i < n; i++)
+            {
+                ans.Append(A[i]);
+            }
+            return ans.ToString();
+        }
+    }
+
+    public class CustomNumberComparer : IComparer<int>
+    {
+        public int Compare(int x, int y)
+        {
+            string a1 = x.ToString() + y.ToString();
+            string b1 = y.ToString() + x.ToString();
+            return Convert.ToInt32(a1) > Convert.ToInt32(b1) ? -1 : 1;
+        }
+    }
+
+    public class QuickSorting
+    {
+        public void QuickSort(List<int> A, int start, int end)
+        {
+            if(start >= end)
+            {
+                return;
+            }
+            int pivot_idex = Partition(A, start, end);
+            QuickSort(A, start, pivot_idex - 1);
+            QuickSort(A, pivot_idex + 1, end);
+        }
+
+        private int Partition(List<int> arr, int low, int high)
+        {
+            int pivot = arr[high];
+            int temp = 0;
+            int i = (low - 1); // index of smaller element 
+            for (int j = low; j < high; j++)
+            {
+                // If current element is smaller than or 
+                // equal to pivot 
+                if (arr[j] <= pivot)
+                {
+                    i++;
+
+                    // swap arr[i] and arr[j] 
+                    //temp = arr[i];
+                    //arr[i] = arr[j];
+                    //arr[j] = temp;
+                    Swap(arr, i, j);
+                }
+            }
+
+            // swap arr[i+1] and arr[high] (or pivot) 
+            //temp = arr[i + 1];
+            //arr[i + 1] = arr[high];
+            //arr[high] = temp;
+            Swap(arr, i + 1, high);
+
+            return i + 1;
+            //int pivot_index = 0, pivot = A[end];
+            //for (int i = start; i < end - 1; i++)
+            //{
+            //    if (A[i] < pivot)
+            //    {
+            //        Swap(A, A[i], pivot_index);
+            //        pivot_index++;
+            //    }
+            //}
+            //Swap(A, end, pivot_index + 1);
+            //return pivot_index + 1;
+        }
+
+        private void Swap(List<int> A, int x, int pivot_index)
+        {
+            int temp = A[x];
+            A[x] = A[pivot_index];
+            A[pivot_index] = temp;
+        }
     }
 }

@@ -11,7 +11,12 @@ namespace ModulerOperator
         static void Main(string[] args)
         {
             //Solve(12,19);
-            FindMod("878", 93);
+            //FindMod("842554936302263", 41);
+            var temp = 'a' - '0';
+            int[] vs = new int[10];
+            //Array.Sort(vs, new Comparer()
+
+            Console.ReadLine();
         }
 
         /// <summary>
@@ -39,10 +44,10 @@ namespace ModulerOperator
             int ans = 0;
             for (int i = len - 1; i >= 0; i--)
             {
-                ans = ans + ((A[i] - '0') % B * (int)Math.Pow(10, count) % B) % B;
+                ans = ans + (int)((A[i] - '0') % B * Math.Pow(10, count) % B) % B;
                 count++;
             }
-            return ans;
+            return ans % B;
         }
 
     }

@@ -16,7 +16,7 @@ namespace BitwiseOperatorsConsoleApp
             //Solve1(new List<int>() { 1, 2, 3, 1, 2, 4 });
             List<int> vs = new List<int>();
 
-            Solve2(3);
+            Solve2(10,3);
         }
 
         /// <summary>
@@ -138,14 +138,24 @@ namespace BitwiseOperatorsConsoleApp
         /// </summary>
         /// <param name="A"></param>
         /// <returns></returns>
-        public static long Solve2(long A)
+        public static long Solve2(long A, int B)
         {
-            long ans = 0;
-            for (int i = 0; i <= 32; i++)
+            //long ans = 0;
+            //for (int i = 0; i <= 32; i++)
+            //{
+            //    if (((A >> i) & 1) == 1)
+            //    {
+            //        ans = ans + ((long)1 << (31 - i));
+            //    }
+            //}
+            //return ans;
+
+            long ans = A;
+            for (int i = 0; i < B; i++)
             {
                 if (((A >> i) & 1) == 1)
                 {
-                    ans = ans + ((long)1 << (31 - i));
+                    ans -= (1 << i);
                 }
             }
             return ans;

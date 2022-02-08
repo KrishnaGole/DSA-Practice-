@@ -49,7 +49,7 @@ namespace ArrayPractice
             Console.ReadLine();
         }
 
-        static void printAddress(int[] arr)
+        static void PrintAddress(int[] arr)
         {
             GCHandle gch = GCHandle.Alloc(arr, GCHandleType.Pinned);
             IntPtr pObj = gch.AddrOfPinnedObject();
@@ -162,7 +162,7 @@ namespace ArrayPractice
             }
         }
 
-        public static int firstMissingPositive(List<int> A)
+        public static int FirstMissingPositive(List<int> A)
         {
             int missingNum = 0; int temp = 0;
             for (int i = 0; i < A.Count; i++)
