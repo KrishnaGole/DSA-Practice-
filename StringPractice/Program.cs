@@ -8,6 +8,9 @@ namespace StringPractice
 {
     internal class Program
     {
+        int minStart = 0;
+        int minEnd = 0;
+        int maxLength = 0;
         static void Main(string[] args)
         {
 
@@ -21,7 +24,10 @@ namespace StringPractice
             //AddBinary("1", "1");
             //List<List<string>> vs = new List<List<string>>() { new List<string>() { "phone", "blue", "pixel" }, new List<string>() { "computer", "silver", "lenovo" }, new List<string>() { "phone", "gold", "iphone" } };
             //CountMatches(vs, "color", "silver");
-            var result = (1 << 5) % 7;
+            //Reverse("krishna");
+            //Program program = new Program();
+            //program.LongestPalindrome("aaaabaaa");
+            Reverse1("the sky is blue");
             Console.ReadLine();
 
         }
@@ -33,7 +39,7 @@ namespace StringPractice
             {
                 start++;
             }
-            if(A.Length == 1 && A[0] == '*')
+            if (A.Length == 1 && A[0] == '*')
             {
                 return "";
             }
@@ -46,11 +52,11 @@ namespace StringPractice
         }
         public static int FirstOccurrenceOfWord(string A, string B)
         {
-            for (int i = 0; i <= A.Length-B.Length; i++)
+            for (int i = 0; i <= A.Length - B.Length; i++)
             {
-                if(A.Substring(i,B.Length) == B)
+                if (A.Substring(i, B.Length) == B)
                 {
-                    return i+1;
+                    return i + 1;
                 }
             }
             return -1;
@@ -71,17 +77,17 @@ namespace StringPractice
             string ans = String.Empty;
             for (int i = 0; i < A.Length; i++)
             {
-                
-                ans += Convert.ToChar(Convert.ToInt32(A[i])-32);
+
+                ans += Convert.ToChar(Convert.ToInt32(A[i]) - 32);
             }
             return ans;
         }
-        
+
         static bool Solve(string input)
         {
             int[] arr = new int[26];
             int count = 0;
-            for(int i =0; i < input.Length; i++)
+            for (int i = 0; i < input.Length; i++)
             {
                 arr[input[i] - 'a']++;
             }
@@ -93,9 +99,9 @@ namespace StringPractice
                     count++;
                 }
             }
-            
-            
-            return count > 1  ? false : true;
+
+
+            return count > 1 ? false : true;
 
         }
 
@@ -214,6 +220,137 @@ namespace StringPractice
                 }
             }
             return count;
+        }
+
+        public static string Reverse(string A)
+        {
+            int n = A.Length;
+            char temp = ' ';
+            StringBuilder stringBuilder = new StringBuilder(A);
+            for (int i = 0; i < n / 2; i++)
+            {
+                temp = stringBuilder[i];
+                stringBuilder[i] = stringBuilder[n - 1 - i];
+                stringBuilder[n - 1 - i] = temp;
+            }
+            return stringBuilder.ToString();
+        }
+
+        public  string LongestPalindrome(string A)
+        {
+            int n = A.Length;
+            //string ans =  string.Empty;
+            for (int i = 0; i < n; i++)
+            {
+                Expand(A, i, i, n);
+
+            }
+            for (int i = 0; i < n - 1; i++)
+            {
+                Expand(A, i, i + 1, n);
+            }
+            return A.Substring(minStart, minEnd);
+            //int n = A.Length;
+            //int maxLength = 0;
+            //string ans = string.Empty;
+            //for (int i = 1; i < n; i++)
+            //{
+            //    ans = Expand(A, i, i, n, maxLength, ans);
+            //    maxLength = ans.Length;
+            //}
+            //for (int i = 1; i < n - 1; i++)
+            //{
+            //    ans = Expand(A, i, i + 1, n, maxLength, ans);
+            //    maxLength = ans.Length;
+            //}
+            //return ans;
+
+        }
+        public  void Expand(string A, int start, int end, int length)
+        {
+            while (start >= 0 && end < length && A[start] == A[end])
+            {
+                start--;
+                end++;
+
+            }
+            //Console.Write(start);
+            if (end - start - 1 > maxLength)
+            {
+                // if(end == length)
+                //     {
+                //         end -= 1; 
+                //     }
+                //return A.Substring(start+1,end - start -1);
+                minStart = start + 1;
+                minEnd = end - start - 1;
+            }
+            maxLength = Math.Max(maxLength,end - start - 1);
+            //while (start >= 0 && end < length && A[start] == A[end])
+            //{
+            //    start--;
+            //    end++;
+
+            //}
+            //if (end - start - 1 > maxLength)
+            //{
+            //    //if(end == length)
+            //    //{
+            //    //    end -= 1; 
+            //    //}
+            //    return A.Substring(start + 1, end -start -1);
+            //}
+            //return ans;
+        }
+
+        public static void Reverse1(string s)
+        {
+            int n = s.Length;
+            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder1 = new StringBuilder();
+            stringBuilder.Append(ReverseString(n, new StringBuilder(s)));
+            List<string> arr = new List<string>();
+            for (int i = 0; i < stringBuilder.Length; i++)
+            {
+                if(i == stringBuilder.Length - 1)
+                {
+                    stringBuilder1.Append(stringBuilder[i]);
+                }
+                if (stringBuilder[i] != ' ' && i != stringBuilder.Length - 1)
+                {
+                    stringBuilder1.Append(stringBuilder[i]);
+                }
+                else
+                {
+                    arr.Add(stringBuilder1.ToString());
+                    stringBuilder1 = new StringBuilder();
+                }
+            }
+            stringBuilder = new StringBuilder();
+            for (int i = 0; i < arr.Count(); i++)
+            {
+                arr[i] = ReverseString(arr[i].Length, new StringBuilder(arr[i]));
+                if(i != arr.Count() - 1)
+                {
+                    stringBuilder.Append(arr[i] + ' ');
+                }
+                else
+                {
+                    stringBuilder.Append(arr[i]);
+
+                }
+            }
+        }
+
+        private static string ReverseString(int n, StringBuilder stringBuilder)
+        {
+            for (int i = 0; i < n / 2; i++)
+            {
+                char temp = stringBuilder[i];
+                stringBuilder[i] = stringBuilder[n - i - 1];
+                stringBuilder[n - i - 1] = temp;
+            }
+            return stringBuilder.ToString();
         }
     }
 }

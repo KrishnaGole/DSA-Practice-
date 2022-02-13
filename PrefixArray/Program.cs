@@ -36,6 +36,7 @@ namespace PrefixArray
             //solve6(vs, vs1);
             // solve7(vs);
             //solve8(new List<int>() { 1, 3, 5 }, new List<int>() { 1,2,3 });
+           
             solve9(new List<int>() { 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1 }, 1);
 
 

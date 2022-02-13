@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitwiseOperatorsConsoleApp"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModulerOperator", "ModulerOperator\ModulerOperator.csproj", "{63942885-5239-42FF-A2C4-62D3EAFF1DBE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hashing", "Hashing\Hashing.csproj", "{31283395-C335-4BE3-BC6E-BB64964AA0D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{63942885-5239-42FF-A2C4-62D3EAFF1DBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63942885-5239-42FF-A2C4-62D3EAFF1DBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63942885-5239-42FF-A2C4-62D3EAFF1DBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31283395-C335-4BE3-BC6E-BB64964AA0D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31283395-C335-4BE3-BC6E-BB64964AA0D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31283395-C335-4BE3-BC6E-BB64964AA0D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31283395-C335-4BE3-BC6E-BB64964AA0D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
