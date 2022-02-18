@@ -10,10 +10,13 @@ namespace Hashing
     {
         static void Main(string[] args)
         {
-             Solve(new List<int>() { 2, 1, 4, 10 }, new List<int>() { 3, 6, 2, 10, 10 });
+
+            //Solve(new List<int>() { 1, 2, 3, 4, 5 }, 5);
+            //Solve(new List<int>() { 2, 1, 4, 10 }, new List<int>() { 3, 6, 2, 10, 10 });
             //var result =  IsZero(new List<int>() { 1, 2, -3, 3 });
             // Solve1(new List<int>() { 7, 1, 3, 4, 1, 7 });
             //Colorful(236);
+            TwoSum(new List<int>() { 2, -9, -5, -8, -4, -2, 1, 1, 0, 6, -3, 9, -8, 2, -2, 9, 7, 6, 9, 1, 4, 1, 0, -5, -1, -4, 2, 2, 0, -2, 3, -4, -2, 1, 7, 5, -3, -1, -3, 6, 2, 6, 8, -6, -9, 7, 1, 6, -6, -6, -5, -6, -6, 7, -9, 8, -4, -1, 9, -7, 10, -5, -1, 10, 3, 2, -5, -4, 10, -10, 5, -2, 10, -3, 5, 3, 4, 9, 0, 0, -9 }, 4);
             Console.ReadLine();
         }
 
@@ -218,6 +221,72 @@ namespace Hashing
                 }
             }
             return ans == 0 ? -1 : ans;
+        }
+
+        /// <summary>
+        /// Subarray with given sum
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <returns></returns>
+        public static List<int> Solve(List<int> A, int B)
+        {
+            int n = A.Count();
+            List<int> prefixSum = new List<int>(A);
+            for (int i = 1; i < n; i++)
+            {
+                prefixSum[i] = prefixSum[i - 1] + prefixSum[i];
+            }
+            Dictionary<int, int> map = new Dictionary<int, int>
+            {
+                { 0, -1 }
+            };
+            for (int i = 0; i < n; i++)
+            {
+                if (!map.ContainsKey(prefixSum[i] - B))
+                {
+                    map.Add(prefixSum[i], i);
+                }
+                else
+                {
+                    A.GetRange(map[prefixSum[i] - B] + 1, i - map[prefixSum[i] - B]);
+                }
+            }
+            return new List<int>() { -1 };
+        }
+
+        /// <summary>
+        /// 2 Sum
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <returns></returns>
+        public static List<int> TwoSum(List<int> A, int B)
+        {
+            int n = A.Count();
+            Dictionary<int, int> keyValuePairs = new Dictionary<int, int>();
+            for(int i = 0; i < n; i++)
+            {
+                int a = A[i];
+                int b = B - a;
+                if (keyValuePairs.ContainsKey(b))
+                {
+                    return new List<int>()
+                    {
+                        ++keyValuePairs[b],
+                        ++i
+                    };
+                }
+                else if (!keyValuePairs.ContainsKey(A[i]))
+                {
+                    keyValuePairs.Add(A[i], i);
+                }
+
+            }
+            return new List<int>();
+
+          
+
         }
     }
 }

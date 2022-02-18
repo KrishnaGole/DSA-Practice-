@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModulerOperator", "ModulerO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hashing", "Hashing\Hashing.csproj", "{31283395-C335-4BE3-BC6E-BB64964AA0D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recursion", "Recursion\Recursion.csproj", "{FAF2CF7E-A290-4A4B-B942-DDC4EDBA784E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{31283395-C335-4BE3-BC6E-BB64964AA0D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31283395-C335-4BE3-BC6E-BB64964AA0D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31283395-C335-4BE3-BC6E-BB64964AA0D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAF2CF7E-A290-4A4B-B942-DDC4EDBA784E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAF2CF7E-A290-4A4B-B942-DDC4EDBA784E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAF2CF7E-A290-4A4B-B942-DDC4EDBA784E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAF2CF7E-A290-4A4B-B942-DDC4EDBA784E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

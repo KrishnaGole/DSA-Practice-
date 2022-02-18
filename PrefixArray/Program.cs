@@ -36,10 +36,10 @@ namespace PrefixArray
             //solve6(vs, vs1);
             // solve7(vs);
             //solve8(new List<int>() { 1, 3, 5 }, new List<int>() { 1,2,3 });
-           
-            solve9(new List<int>() { 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1 }, 1);
 
+            //solve9(new List<int>() { 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1 }, 1);
 
+            PrintTwoElements(new List<int>() { 3, 1, 2, 5, 3 });
 
 
             Console.ReadLine();
@@ -517,5 +517,23 @@ namespace PrefixArray
             return ans;
         }
 
+        static List<int> PrintTwoElements(List<int> A)
+        {
+            int a = 0;
+            int b = 0;
+            int n = A.Count();
+            A.Sort();
+
+            for(int i = 0; i < n-1; i++)
+            {
+                if(A[i] == A[i + 1])
+                {
+                    a = A[i];
+                    b = A[i] + 1;
+                }
+            }
+
+            return new List<int>() { a, b };
+        }
     }
 }

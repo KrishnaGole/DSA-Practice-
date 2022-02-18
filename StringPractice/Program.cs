@@ -27,7 +27,8 @@ namespace StringPractice
             //Reverse("krishna");
             //Program program = new Program();
             //program.LongestPalindrome("aaaabaaa");
-            Reverse1("the sky is blue");
+            //Reverse1("the sky is blue");
+            CheckPalindrome("yzfbzbyyrurquqf");
             Console.ReadLine();
 
         }
@@ -351,6 +352,44 @@ namespace StringPractice
                 stringBuilder[n - i - 1] = temp;
             }
             return stringBuilder.ToString();
+        }
+
+
+        /// <summary>
+        /// Check Palindrome - II
+        /// </summary>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public static int CheckPalindrome(string A)
+        {
+            int n = A.Length;
+            Dictionary<char, int> map = new Dictionary<char, int>();
+            for (int i = 0; i < n; i++)
+            {
+                if (!map.ContainsKey(A[i]))
+                {
+                    map.Add(A[i], 1);
+                }
+                else
+                {
+                    map[A[i]]++;
+                }
+            }
+            int ans = 1;
+            int count = 0;
+            for (int i = 0; i < map.Count(); i++)
+            {
+                if (n % 2 == 0 && map.ElementAt(i).Value % 2 == 1)
+                {
+                    return 0;
+                }
+                else if (n % 2 == 1 && map.ElementAt(i).Value % 2 == 1)
+                {
+                    count++;
+                }
+            }
+
+            return (n % 2 == 1 && count == 1) || (n % 2 == 0 && count == 0) ? ans : 0;
         }
     }
 }
