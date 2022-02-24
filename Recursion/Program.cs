@@ -13,8 +13,8 @@ namespace Recursion
             //Console.WriteLine(Solve("strings"));
             //Console.WriteLine(Pow(-1, 1, 20)); 
             // Console.WriteLine(MagicNumber(963)); 
-            //Changecharacter("umeaylnlfd", 1);
-            StringOperations("hgUe");
+            //Console.WriteLine(Pow(2,10));
+            Console.WriteLine(Foo(3,5));
             Console.Read();
         }
 
@@ -120,47 +120,41 @@ namespace Recursion
             return ans[B - 1];
         }
 
-        public static int Changecharacter(string A, int B)
+        public static int Pow(int x, int n)
         {
-            int[] counts = new int[26];
-            int ans = 0;
-            for (int i = 0; i < A.Length; i++)
+            if(n == 0)
             {
-                counts[A[i] - 'a']++;
+                return 1;
             }
-            Array.Sort(counts);
-            for (int i = 0; i < 26; i++)
+            else if(n % 2 == 0)
             {
-                if (counts[i] != 0 && B - counts[i] >= 0)
-                {
-                    B -= counts[i];
-                }
-                else if(counts[i] != 0)
-                {
-                    ans++;
-                }
+                return Pow(x * x, n / 2);
             }
-            return ans;
+            else
+            {
+                return x * Pow(x * x, (n - 1) / 2);
+            }
         }
 
-        public static string StringOperations(string A)
+        public static int Foo(int x, int y)
         {
-            StringBuilder sb = new StringBuilder(A);
-            sb.Append(A);
-            StringBuilder ans = new StringBuilder(A);
-            int n = sb.Length;
-            for (int i = 0; i < n; i++)
+            if(y == 0)
             {
-                if (sb[i] >= 65 && sb[i] <= 90)
-                {
-                }
-                else if (sb[i] == 'a' || sb[i] == 'i' || sb[i] == 'e' || sb[i] == 'o' || sb[i] == 'u')
-                {
-                    ans.Append('#');
-                }
+                return 1;
             }
-            return ans.ToString();
+            return Bar(x, Foo(x, y - 1));
         }
+
+        public static int Bar(int x, int y)
+        {
+            if(y == 0)
+            {
+                return 0;
+            }
+            return (x + Bar(x, y - 1));
+        }
+
+        
 
     }
 }

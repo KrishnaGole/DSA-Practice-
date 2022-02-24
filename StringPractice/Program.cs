@@ -391,5 +391,49 @@ namespace StringPractice
 
             return (n % 2 == 1 && count == 1) || (n % 2 == 0 && count == 0) ? ans : 0;
         }
+
+        public static int Changecharacter(string A, int B)
+        {
+            int[] counts = new int[26];
+            int ans = 0;
+            for (int i = 0; i < A.Length; i++)
+            {
+                counts[A[i] - 'a']++;
+            }
+            Array.Sort(counts);
+            for (int i = 0; i < 26; i++)
+            {
+                if (counts[i] != 0 && B - counts[i] >= 0)
+                {
+                    B -= counts[i];
+                }
+                else if (counts[i] != 0)
+                {
+                    ans++;
+                }
+            }
+            return ans;
+        }
+
+        public static string StringOperations(string A)
+        {
+            StringBuilder sb = new StringBuilder(A);
+            sb.Append(A);
+            StringBuilder ans = new StringBuilder(A);
+            int n = sb.Length;
+            for (int i = 0; i < n; i++)
+            {
+                if (sb[i] >= 65 && sb[i] <= 90)
+                {
+                }
+                else if (sb[i] == 'a' || sb[i] == 'i' || sb[i] == 'e' || sb[i] == 'o' || sb[i] == 'u')
+                {
+                    ans.Append('#');
+                }
+            }
+            return ans.ToString();
+        }
+
+
     }
 }

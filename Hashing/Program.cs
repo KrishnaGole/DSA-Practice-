@@ -16,7 +16,9 @@ namespace Hashing
             //var result =  IsZero(new List<int>() { 1, 2, -3, 3 });
             // Solve1(new List<int>() { 7, 1, 3, 4, 1, 7 });
             //Colorful(236);
-            TwoSum(new List<int>() { 2, -9, -5, -8, -4, -2, 1, 1, 0, 6, -3, 9, -8, 2, -2, 9, 7, 6, 9, 1, 4, 1, 0, -5, -1, -4, 2, 2, 0, -2, 3, -4, -2, 1, 7, 5, -3, -1, -3, 6, 2, 6, 8, -6, -9, 7, 1, 6, -6, -6, -5, -6, -6, 7, -9, 8, -4, -1, 9, -7, 10, -5, -1, 10, 3, 2, -5, -4, 10, -10, 5, -2, 10, -3, 5, 3, 4, 9, 0, 0, -9 }, 4);
+            //TwoSum(new List<int>() { 2, -9, -5, -8, -4, -2, 1, 1, 0, 6, -3, 9, -8, 2, -2, 9, 7, 6, 9, 1, 4, 1, 0, -5, -1, -4, 2, 2, 0, -2, 3, -4, -2, 1, 7, 5, -3, -1, -3, 6, 2, 6, 8, -6, -9, 7, 1, 6, -6, -6, -5, -6, -6, 7, -9, 8, -4, -1, 9, -7, 10, -5, -1, 10, 3, 2, -5, -4, 10, -10, 5, -2, 10, -3, 5, 3, 4, 9, 0, 0, -9 }, 4);
+            //PairsWithGivenXor(new List<int>() { 5, 4, 10, 15, 7, 6 }, 5);
+            ValidSudoKu(new List<string>() { "..5.....6", "....14...", ".........", ".....92..", "5....2...", ".......3.", "...54....", "3.....42.", "...27.6.." });
             Console.ReadLine();
         }
 
@@ -287,6 +289,89 @@ namespace Hashing
 
           
 
+        }
+
+        public static int PairsWithGivenXor(List<int> A, int B)
+        {
+            int n = A.Count();
+            int count = 0;
+            Dictionary<int, int> map = new Dictionary<int, int>();
+            for (int i = 0; i < n; i++)
+            {
+                if (map.ContainsKey((A[i] ^ B)))
+                {
+                    count += map[(A[i] ^ B)];
+                }
+                else
+                {
+                    map.Add(A[i], 1);
+                }
+            }
+            return count;
+        }
+
+        public static int ValidSudoKu(List<string> A)
+        {
+            HashSet<int> hashset1 = new HashSet<int>();
+            HashSet<int> hashset2 = new HashSet<int>();
+            for (int i = 0; i < A.Count(); i++)
+            {
+                hashset1 = new HashSet<int>();
+                hashset2 = new HashSet<int>();
+                for (int j = 0; j < A.Count(); j++)
+                {
+                    if (A[i][j] != '.')
+                    {
+                        if (hashset1.Contains(A[i][j]))
+                        {
+                            return 0;
+                        }
+                        else
+                        {
+                            hashset1.Add(A[i][j]);
+                        }
+                    }
+
+                    if (A[j][i] != '.')
+                    {
+                        if (hashset2.Contains(A[j][i]))
+                        {
+                            return 0;
+                        }
+                        else
+                        {
+                            hashset2.Add(A[j][i]);
+                        }
+
+                    }
+                }
+            }
+            for (int i = 0; i < A.Count(); i+=3)
+            {
+                for (int j = 0; j < A.Count(); j+=3)
+                {
+                    hashset1 = new HashSet<int>();
+                    for (int k = i; k < i + 3; k++)
+                    {
+                        for (int l = 0; l < j+3; l++)
+                        {
+                            if(A[k][j] != '.')
+                            {
+                                if (hashset1.Contains(A[k][j]))
+                                {
+                                    return 0;
+                                }
+                                else
+                                {
+                                    hashset1.Add(A[k][l]);
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            return 1;
         }
     }
 }
