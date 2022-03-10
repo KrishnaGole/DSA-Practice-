@@ -43,9 +43,11 @@ namespace ArrayPractice
             //ForVsWhile();
             //AllOccurences("Apple Apple ususuu Apple usuusus", "Apple");
             //RotateAMatrix90(new List<List<int>>() { new List<int>() { 1, 2, 3, 4}, new List<int>() { 5,6,7,8 } , new List<int>() { 9,10,11,12 } , new List<int>() { 13,14,15,16 } });
-            List<int> vs = new List<int>() { 8986143, -5026827, 5591744, 4058312, 2210051, 5680315, -5251946, -607433, 1633303, 2186575 };
+            List<int> vs = new List<int>() { 1, 2, 1 };
+            //BuildArray(vs.ToArray());
+            GetConcatenation(vs.ToArray());
 
-            Solve(vs);
+            //Solve(vs);
             Console.ReadLine();
         }
 
@@ -272,6 +274,49 @@ namespace ArrayPractice
             return vs;
 
 
+        }
+
+        /// <summary>
+        /// Build Array from Permutation
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public static  int[] BuildArray(int[] nums)
+        {
+            //int[] ans = new int[nums.Count()];
+            for (int i = 0; i < nums.Count(); i++)
+            {
+                if (nums[i] != nums[nums[i]])
+                {
+                    int temp = nums[i];
+                    nums[i] = nums[nums[i]];
+                    nums[temp] = temp;
+                }
+            }
+            return nums;
+
+        }
+
+        /// <summary>
+        /// Concatenation of Array
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public static int[] GetConcatenation(int[] nums)
+        {
+            int[] ans = new int[2 * nums.Count()];
+            for (int i = 0; i < 2 * nums.Length; i++)
+            {
+                if (i > nums.Count() - 1)
+                {
+                    ans[i] = nums[nums.Count() - i];
+                }
+                else
+                {
+                    ans[i] = nums[i];
+                }
+            }
+            return ans;
         }
     }
 }
