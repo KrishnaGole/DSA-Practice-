@@ -14,9 +14,12 @@ namespace BitwiseOperatorsConsoleApp
             //numSetBits(11);
             //Solve(3);
             //Solve1(new List<int>() { 1, 2, 3, 1, 2, 4 });
-            List<int> vs = new List<int>();
-
-            Solve2(10,3);
+            //SolveIII(new List<int>() { 186, 256, 102, 377, 186, 377 });
+            //Solve2(10,3);
+            //InterestingArray(new List<int>() { 1 });
+            //RepeatAndMissingNumberArray(new List<int>() { 3, 1, 2, 5, 3, });
+            //HammingDistance(new List<int>() { 2, 4, 6 });
+            Solve(new List<int>() { 1,2,3,4,5 }, 2);
         }
 
         /// <summary>
@@ -159,6 +162,202 @@ namespace BitwiseOperatorsConsoleApp
                 }
             }
             return ans;
+
+        }
+
+        /// <summary>
+        ///  Single Number II
+        /// </summary>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public static int SingleNumber1(List<int> A)
+        {
+            int ans = 0;
+            int count = 0;
+            for (int i = 0; i <= 30; i++)
+            {
+                count = 0;
+                for (int j = 0; j < A.Count(); j++)
+                {
+                    if (((A[j] >> i) & 1) == 1)
+                    {
+                        count++;
+                    }
+                }
+                if (count % 3 == 1)
+                {
+                    ans += (1 << i);
+                }
+            }
+            return ans;
+        }
+
+        /// <summary>
+        /// Single Number III
+        /// </summary>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public static List<int> SolveIII(List<int> A)
+        {
+            int xor = 0, pos = 0, num1 = 0, num2 = 0;
+            for (int i = 0; i < A.Count(); i++)
+            {
+                xor ^= A[i];
+            }
+            for (int i = 31; i >= 0; i--)
+            {
+                if (((xor << i) & 1) == 1)
+                {
+                    pos = i;
+                    break;
+                }
+            }
+
+            //for (int i = 0; i < 31; i++)
+            //{
+            //    if (((xor << i) & 1) == 1)
+            //    {
+            //        pos = i;
+            //        break;
+            //    }
+            //}
+
+            for (int i = 0; i < A.Count(); i++)
+            {
+                if (((A[i] >> pos) & 1) == 1)
+                {
+                    num1 ^= A[i];
+                }
+                else
+                {
+                    num2 ^= A[i];
+                }
+            }
+
+            return new List<int>() { num1, num2 };
+        }
+
+        public static string InterestingArray(List<int> A)
+        {
+            int count = 0;
+            for (int i = 0; i < A.Count(); i++)
+            {
+                if ((A[i] & 1) == 0)
+                {
+                    count++;
+                }
+            }
+            if ((count & 1) == 0 && count > 0)
+            {
+                return "Yes";
+            }
+            return "No";
+        }
+
+        /// <summary>
+        /// Repeat and Missing Number Array
+        /// </summary>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public static List<int> RepeatAndMissingNumberArray(List<int> A)
+        {
+            List<int> ans = new List<int>();
+            for(int i = 0; i < A.Count(); i++)
+            {
+                int abs = Math.Abs(A[i]);
+                if(A[abs - 1] > 0)
+                {
+                    A[abs - 1] = -A[abs - 1];
+                }
+                else
+                {
+                    ans.Add(abs);
+                }
+
+            }
+            return ans;
+        }
+
+
+        public static int HammingDistance(List<int> A)
+        {
+            int sum = 0;
+            for (int i = 0; i < A.Count(); i++)
+             {
+                 for (int j = 0; j < A.Count(); j++)
+                 {
+                    for(int b = 0; b <= 30; b++)
+                    {
+                        if (CheckBit(A[i], b) == true && CheckBit(A[j], b) == false)
+                        {
+                            sum++;
+                        }
+                        else if (CheckBit(A[i], b) == false && CheckBit(A[j], b) == true)
+                        {
+                            sum++;
+                        }
+                    }
+                 }
+             }
+
+            
+            return sum;
+
+        }
+        public static bool CheckBit(int n, int i)
+        {
+            if (((n >> i) & 1) == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        public static int Solve(List<int> A, int B)
+        {
+            long count = 0; int mod = 1000000007;
+            for (int i = 0; i < A.Count(); i++)
+            {
+                A[i] %= B;
+            }
+            Dictionary<int, int> map = new Dictionary<int, int>();
+            for (int i = 0; i < A.Count(); i++)
+            {
+                if (map.ContainsKey(A[i]))
+                {
+                    map[A[i]]++;
+                }
+                else
+                {
+                    map.Add(A[i], 1);
+                }
+            }
+            if (map.ContainsKey(0))
+            {
+                count += ((map[0] % mod * ((map[0] - 1) % mod) / 2) % mod) % mod;
+            }
+
+            if (B % 2 == 0)
+            {
+                if (map.ContainsKey(B / 2))
+                {
+                    count += ((map[B / 2] % mod * ((map[(B / 2)] - 1) % mod) / 2) % mod);
+                }
+            }
+
+            for (int i = 1; i < (B + 1) / 2; i++)
+            {
+                if (map.ContainsKey(B - i) && map.ContainsKey(i))
+                {
+                    count += (map[i] % mod * map[B - i] % mod) % mod;
+                }
+            }
+
+            return (int)(count + mod) % mod;
 
         }
     }

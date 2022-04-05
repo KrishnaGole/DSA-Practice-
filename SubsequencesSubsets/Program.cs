@@ -10,11 +10,14 @@ namespace SubsequencesSubsets
     {
         static void Main(string[] args)
         {
-            HashSet<List<int>> hs = new HashSet<List<int>>();
-            List<List<int>> vs = new List<List<int>>();
-            //SUBARRAYOR(new List<int>() { 1, 2, 3, 4, 5 });
-            //Solve("scsecugqsb");
-            Subsets(new List<int>() { 1,2,3 });
+            //HashSet<List<int>> hs = new HashSet<List<int>>();
+            //List<List<int>> vs = new List<List<int>>();
+            ////SUBARRAYOR(new List<int>() { 1, 2, 3, 4, 5 });
+            ////Solve("scsecugqsb");
+            //Subsets(new List<int>() { 1,2,3 });
+            //Solve(new List<int>() { 43, 46, 33, 7 });
+            // Solve1(new List<int>() { 5, 4, 2 });
+            Solve("apple", "appel");
             Console.ReadLine();
         }
 
@@ -113,5 +116,118 @@ namespace SubsequencesSubsets
             }
         }
 
+        /// <summary>
+        /// Odd Even Subsequences
+        /// </summary>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public static int Solve(List<int> A)
+        {
+            int ans1 = 0;
+            int ans2 = 0;
+            bool isOdd = false;
+            bool isEven = false;
+            for (int i = 0; i < A.Count(); i++)
+            {
+                if (A[i] % 2 == 0 && !isEven)
+                {
+                    isEven = true;
+                    ans1++;
+                }
+                else if (isEven && A[i] % 2 == 1)
+                {
+                    ans1++;
+                    isEven = false;
+                }
+                else if (A[i] % 2 == 1 && !isOdd)
+                {
+                    isOdd = true;
+                    ans2++;
+                }
+                else if (isOdd && A[i] % 2 == 0)
+                {
+                    ans2++;
+                    isOdd = false;
+                }
+            }
+            return Math.Max(ans1, ans2);
+        }
+
+        /// <summary>
+        /// Sum the Difference
+        /// </summary>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public static int Solve1(List<int> A)
+        {
+            A.Sort();
+            int maxsum = 0;
+            int minsum = 0;
+            int n = A.Count();
+            for (int i = 0; i < n; i++)
+            {
+                maxsum = maxsum + A[i] * Pow(2, i, 1000000007);
+            }
+            A = A.OrderByDescending(x => x).ToList();
+            for (int i = 0; i < n; i++)
+            {
+                minsum = minsum + Pow(2, i, 1000000007);
+            }
+            return maxsum - minsum;
+        }
+
+        public static int Pow(int A, int B, int C)
+        {
+            if (A == 0 && B == 0)
+            {
+                return 0;
+            }
+            if (B == 0)
+            {
+                return 1;
+            }
+            long he = Pow(A, B / 2, C);
+            long ha = ((he % C) * (he % C)) % C;
+            if (B % 2 == 0)
+            {
+                return (int)ha;
+            }
+            else
+            {
+                if ((int)((ha % C * A % C) % C) < 0)
+                {
+                    return (int)((ha % C * A % C) % C) + C;
+                }
+                return (int)(ha % C * A % C) % C;
+            }
+        }
+
+        /// <summary>
+        ///  Find subsequence
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <returns></returns>
+        public static string Solve(string A, string B)
+        {
+            int length = B.Length;
+            int j = 0;
+            for (int i = 0; i < length; i++)
+            {
+                if (A[j] == B[i])
+                {
+                    ++j;
+                }
+                if ((j) == A.Length - 1)
+                {
+                    return "YES";
+                }
+            }
+
+
+            return "NO";
+
+
+        }
     }
 }

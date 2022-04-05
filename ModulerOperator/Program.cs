@@ -50,5 +50,6 @@ namespace ModulerOperator
             return ans % B;
         }
 
+
     }
 }
