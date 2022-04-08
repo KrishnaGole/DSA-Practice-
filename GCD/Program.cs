@@ -11,7 +11,9 @@ namespace GCD
         static void Main(string[] args)
         {
             // Solve(new List<int>() { 3, 9, 6, 8, 3 });
-            GCD1(16, 24);
+            //GCD1(16, 24);
+            Solve1(new List<int>() { 1, 31, 1, 1, 1, 1, 14, 2, 1, 1, 1, 2, 22, 1, 11, 1, 1, 1, 1, 23, 1, 1, 11, 1, 11 });
+
         }
 
         public static int Solve(List<int> A)
@@ -82,6 +84,52 @@ namespace GCD
             return A;
         }
 
-       
+        public static List<int> Solve1(List<int> A)
+        {
+            Dictionary<int, int> map = new Dictionary<int, int>();
+            List<int> B = new List<int>();
+            A = A.OrderByDescending(x => x).ToList();
+            foreach (var a in A)
+            {
+                if (map.ContainsKey(a) && map[a] > 0)
+                {
+                    map[a]--;
+                }
+                else
+                {
+                    foreach (var b in B)
+                    {
+                        int temp = Gcd(a, b);
+                        if (map.ContainsKey(temp))
+                        {
+                            map[temp] += 2;
+                        }
+                        else
+                        {
+                            map.Add(temp, 2);
+                        }
+
+                    }
+                    if (!map.ContainsKey(a))
+                    {
+                        map.Add(a, 1);
+                    }
+                    B.Add(a);
+                }
+            }
+            B.Reverse();
+            return B;
+        }
+
+        public static int Gcd(int A, int B)
+        {
+            if (B == 0)
+            {
+                return A;
+            }
+            return Gcd(B, A % B);
+        }
+
+
     }
 }

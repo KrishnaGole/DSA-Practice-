@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCD", "GCD\GCD.csproj", "{6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeNumbers", "PrimeNumbers\PrimeNumbers.csproj", "{2BC09AEC-A4FE-4390-8094-9C9511608101}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathsCombinatorics", "MathsCombinatorics\MathsCombinatorics.csproj", "{8FE23E12-2D00-4AD4-8E52-DA5E219F39DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +143,10 @@ Global
 		{2BC09AEC-A4FE-4390-8094-9C9511608101}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BC09AEC-A4FE-4390-8094-9C9511608101}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BC09AEC-A4FE-4390-8094-9C9511608101}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FE23E12-2D00-4AD4-8E52-DA5E219F39DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FE23E12-2D00-4AD4-8E52-DA5E219F39DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FE23E12-2D00-4AD4-8E52-DA5E219F39DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FE23E12-2D00-4AD4-8E52-DA5E219F39DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
