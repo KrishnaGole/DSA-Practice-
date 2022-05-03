@@ -17,7 +17,8 @@ namespace MathsCombinatorics
             //FindAthFibonacci(4);
 
             //var ans = Reverse(0, input.Length - 1, new StringBuilder("krishna"));
-            var ans = Solve2(6);
+            //var ans = Solve2(6);
+            var ans = FindRank("view");
         }
 
         public static int Solve(int N, int R, int P)
@@ -165,6 +166,35 @@ namespace MathsCombinatorics
                 return 2;
             }
             return (Solve2(A - (++count)) + Solve2(A - (++count))) + A;
+
+        }
+
+        public static int FindRank(string A)
+        {
+            int count = 0; long sum = 0; int mod = 1000003;
+            for (int i = 0; i < A.Length; i++)
+            {
+                count++;
+                for (int j = i + 1; j < A.Length; j++)
+                {
+                    if (A[i] > A[j])
+                    {
+                        count++;
+                    }
+                }
+                sum += count % mod * Fact(A.Length - 1 - i, mod);
+            }
+            return (int)(sum % mod);
+
+        }
+
+        public static int Fact(int A, int mod)
+        {
+            if (A == 0)
+            {
+                return 1;
+            }
+            return (A % mod * Fact(A - 1, mod) % mod) % mod;
 
         }
     }

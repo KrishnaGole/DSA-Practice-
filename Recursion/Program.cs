@@ -14,7 +14,8 @@ namespace Recursion
             //Console.WriteLine(Pow(-1, 1, 20)); 
             // Console.WriteLine(MagicNumber(963)); 
             //Console.WriteLine(Pow(2,10));
-            Console.WriteLine(Foo(3,5));
+            //Console.WriteLine(Foo(3,5));
+           var ans = kthsymbol(5, 5);
             Console.Read();
         }
 
@@ -154,7 +155,37 @@ namespace Recursion
             return (x + Bar(x, y - 1));
         }
 
-        
 
+        //public static int solve(int A, int B)
+        //{
+        //    int count = 1;
+        //    List<char> ans = new List<char>();
+        //    ans.Add('0');
+        //    ans = kthsymbol(A, ans, count);
+        //    return ans[B - 1];
+
+        //}
+
+        public static int kthsymbol(int N, int K)
+        {
+           
+                if (K == 0)
+                {
+                    return 0;
+                }
+                int partentData = kthsymbol(N - 1, K / 2);
+                if (K % 2 == 0)
+                {
+                    return partentData;
+                }
+                else
+                {
+                    return 1 - partentData;
+                }
+
+            
+        }
+
+    
     }
 }

@@ -17,9 +17,10 @@ namespace Sorting
             // Console.WriteLine(checkSorted(vs));
             //ElementRemoval(new List<int>() { 3, 5, 1, -3 });
             //LargestNum(new List<int>() { 8,89 });
-            QuickSorting quickSorting = new QuickSorting();
-            List<int> vs = new List<int>() { 10, 7, 8, 9, 1, 5 };
-             quickSorting.QuickSort(vs, 0, vs.Count() - 1);
+            //QuickSorting quickSorting = new QuickSorting();
+            //List<int> vs = new List<int>() { 10, 7, 8, 9, 1, 5 };
+            // quickSorting.QuickSort(vs, 0, vs.Count() - 1);
+            solve(new List<int>() { 1, 2, 3 });
             Console.ReadLine();
         }
 
@@ -167,6 +168,41 @@ namespace Sorting
                 ans.Append(A[i]);
             }
             return ans.ToString();
+        }
+
+        public static int solve(List<int> A)
+        {
+            A.Sort();
+            long max = 0, min = 0, mod = 1000000007;
+            int n = A.Count(), p1 = 0, p2 = n - 1;
+            for (int i = 0; i < n; i++)
+            {
+                max = (A[i] % mod * pow(2, p1, mod) % mod) % mod;
+                min = (A[i] % mod * pow(2, p2, mod) % mod) % mod;
+                p1++;
+                p2--;
+            }
+            long ans = (max - min) % mod;
+            return ans < 0 ? (int)(ans + mod) : (int)ans;
+        }
+
+        public static long pow(long A, long B, long C)
+        {
+            if (B == 0)
+            {
+                return 1;
+            }
+
+            long ha = pow(A, B / 2, C);
+            long he = (ha % C * ha % C) % C;
+            if (B % 2 == 0)
+            {
+                return he;
+            }
+            else
+            {
+                return (he % C * A % C) % C;
+            }
         }
     }
 

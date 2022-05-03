@@ -641,6 +641,43 @@ namespace SumOfNum
             return A;
         }
 
+        public static int Solve(List<int> A, int B, int C)
+        {
+            int n = A.Count(); string temp = string.Empty; int ans = 0; string temp1 = string.Empty;
+            for (int i = 0; i < n; i++)
+            {
+                temp = string.Empty;
+                temp += A[i];
+                for (int j = 0; j < n; j++)
+                {
+                    temp1 = Convert.ToString(Convert.ToInt16(temp));
+                    if (temp.Length < B && Convert.ToInt32(temp) < C)
+                    {
+                        temp += A[j];
+                    }
+                    else
+                    {
+                        if (temp1.Length == B && Convert.ToInt32(temp) < C)
+                        {
+                            ans++;
+                        }
+                        temp = A[i].ToString();
+                        if (j > 0)
+                        {
+                            j--;
+                        }
+                    }
+                }
+                string s = Convert.ToString(Convert.ToInt16(temp));
+                if (A.Count > 1 && s.Length == B && Convert.ToInt32(temp) < C)
+                {
+                    ans++;
+                }
+
+            }
+            return ans;
+        }
+
 
     }
 }

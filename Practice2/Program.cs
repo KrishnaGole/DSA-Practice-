@@ -8,6 +8,7 @@ namespace Practice2
 {
     internal class Program
     {
+        static int ans = 0;
         static void Main(string[] args)
         {
             //List<int> A = new List<int>() { 1, 2, 3, 4, 5 };
@@ -24,7 +25,18 @@ namespace Practice2
             //    Console.Write(item + " ");
             //}
             //PickFromBothSide(new List<int>() { -533, -666, -500, 169, 724, 478, 358, -38, -536, 705, -855, 281, -173, 961, -509, -5, 942, -173, 436, -609, -396, 902, -847, -708, -618, 421, -284, 718, 895, 447, 726, -229, 538, 869, 912, 667, -701, 35, 894, -297, 811, 322, -667, 673, -336, 141, 711, -747, -132, 547, 644, -338, -243, -963, -141, -277, 741, 529, -222, -684, 35 }, 48);
-            ClosestMinMax(new List<int>() { 814, 761, 697, 483, 981 });
+            //ClosestMinMax(new List<int>() { 814, 761, 697, 483, 981 });
+            //var ans = LargestNumber(new List<int>() { 3, 30, 34, 5, 9 });
+            Fanstatic4(new List<int>() {  });
+            //int[] arr = { 2, 2, 4, 5};
+
+            //// Auxiliary space to store each path
+            //List<int> path = new List<int>();
+
+            //ans = 0;
+            // PrintSubsequences(arr.ToList(), 0, new List<int>() { }, 3,7);
+           // var result = Solve1(new List<int>() { 1,1,3,2,4,5,6});
+
             Console.ReadLine();
            
 
@@ -231,5 +243,148 @@ namespace Practice2
             return length;
         }
 
+        public static string  LargestNumber(List<int> A)
+        {
+            A.Sort((int a, int b) =>
+            {
+                string s1 = a.ToString() + b.ToString();
+                string s2 = b.ToString() + a.ToString();
+                return -s1.CompareTo(s2);
+            });
+            StringBuilder ans = new StringBuilder();
+            bool flag = true;
+            foreach (int a in A)
+            {
+                if(a != 0)
+                {
+                    flag = false;
+                }
+                ans.Append(a);
+            }
+            return ans.ToString();
+
+        }
+
+        public static int Fanstatic4(List<int> A)
+        {
+            int n = A.Count();
+            List<int> temp = new List<int>();
+            for (int i = 0; i < n; i++)
+            {
+                if(A[i] % 4 != 0)
+                {
+                    temp.Add(A[i]);
+                }
+            }
+            //if(temp.Count() % 2 != 0)
+            //{
+            //    return -1;
+            //}
+             if(temp.Sum() % 4 != 0)
+            {
+                return -1;
+            }
+            else
+            {
+                return temp.Sum() / 4;
+            }
+        }
+
+        static void PrintSubsequences(List<int> arr, int index, List<int> path, int B, int C)
+        {
+
+            // Print the subsequence when reach
+            // the leaf of recursion tree
+            if (index == arr.Count())
+            {
+
+                // Condition to avoid printing
+                // empty subsequence
+                if (path.Count > 0)
+                {
+                    
+                    int sum = path.Sum();
+                    if(sum >= B && sum <= C)
+                    {
+                        for (int i = 0; i < path.Count(); i++)
+                        {
+                            if (PrimeNumber(path[i]))
+                            {
+                                ans++;
+                                break;
+                            }
+                        }
+                    }
+                    
+                }
+            }
+
+            else
+            {
+
+                // Subsequence without including
+                // the element at current index
+                PrintSubsequences(arr, index + 1, path, B, C);
+
+                path.Add(arr[index]);
+
+                // Subsequence including the element
+                // at current index
+                PrintSubsequences(arr, index + 1, path, B, C);
+
+                // Backtrack to remove the recently
+                // inserted element
+                path.RemoveAt(path.Count - 1);
+            }
+            return;
+        }
+
+        public static bool PrimeNumber(int num)
+        {
+            bool isPrime = true;
+            for(int i = 2; i * i <= num; i++)
+            {
+                if(num % i == 0)
+                {
+                    isPrime = false;
+                }
+            }
+            return isPrime;
+        }
+
+        public static string Solve1(List<int> A)
+        {
+            List<int> temp = new List<int>(A);
+            int count = 0;
+            A.Sort();
+            for(int i = 0; i < A.Count(); i++)
+            {
+                if(A[i] != temp[i])
+                {
+                    count++;
+                }
+            }
+            return count == 3 ? "YES" : "NO";
+        }
+
     }
+
+    class MyComparer : IComparer<int>
+    {
+        public int Compare(int a, int b)
+        {
+            string s1 = a.ToString() + b.ToString();
+            string s2 = b.ToString() + a.ToString();
+            return -s1.CompareTo(s2);
+        }
+    }
+    //class MyComparer : IComparer<string>
+    //{
+    //    public  int Compare(string x, string y)
+    //    {
+    //        int a = Convert.ToInt32(x+y);
+    //        int b = Convert.ToInt32(y+x);
+    //        return a  > b  ? -1 : 1;
+    //    }
+    //}
 }

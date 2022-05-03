@@ -12,19 +12,32 @@ namespace TowerOfHanoi
         static void Main(string[] args)
         {
            
-            TOH(50, "A", "C", "B");
+            TOH(3, "1", "2", "3");
             Console.ReadLine();
         }
-        static void TOH(int n, string source, string destination, string helper)
-        {
+        //static void TOH(int n, string source, string destination, string helper)
+        //{
             
+        //    if (n == 0)
+        //    {
+        //        return;
+        //    }
+        //    TOH(n - 1, source, helper, destination);
+        //    Console.WriteLine($"Step {++count} - Move {n} from {source} to {destination} ");
+        //    TOH(n - 1, helper, destination, source);
+
+        //}
+
+        static void TOH(int n, string source, string helper, string destination)
+        {
+
             if (n == 0)
             {
                 return;
             }
-            TOH(n - 1, source, helper, destination);
+            TOH(n - 1, source, destination, helper);
             Console.WriteLine($"Step {++count} - Move {n} from {source} to {destination} ");
-            TOH(n - 1, helper, destination, source);
+            TOH(n - 1, helper, source, destination);
 
         }
     }
