@@ -55,6 +55,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvanceBinarySearch", "Adva
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoPointers", "TwoPointers\TwoPointers.csproj", "{53DF6EBD-83E1-45AF-83C3-474DFCF13A86}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvanceHashing", "AdvanceHashing\AdvanceHashing.csproj", "{0E241BA2-E89D-48E8-8AAF-657FCF63E439}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringsPatternMatching", "StringsPatternMatching\StringsPatternMatching.csproj", "{D4E8F21D-F81F-45AC-8E97-7AA62464E305}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -165,6 +169,14 @@ Global
 		{53DF6EBD-83E1-45AF-83C3-474DFCF13A86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53DF6EBD-83E1-45AF-83C3-474DFCF13A86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53DF6EBD-83E1-45AF-83C3-474DFCF13A86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E241BA2-E89D-48E8-8AAF-657FCF63E439}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E241BA2-E89D-48E8-8AAF-657FCF63E439}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E241BA2-E89D-48E8-8AAF-657FCF63E439}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E241BA2-E89D-48E8-8AAF-657FCF63E439}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4E8F21D-F81F-45AC-8E97-7AA62464E305}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4E8F21D-F81F-45AC-8E97-7AA62464E305}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4E8F21D-F81F-45AC-8E97-7AA62464E305}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4E8F21D-F81F-45AC-8E97-7AA62464E305}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

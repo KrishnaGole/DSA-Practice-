@@ -27,7 +27,9 @@ namespace AdvanceBinarySearch
             //C: 38141
 
             //Solve(7, 2, 3);
-            AggressiveCows(new List<int>() { 1, 2, 3, 4, 5 }, 3);
+            //AggressiveCows(new List<int>() { 1, 2, 3, 4, 5 }, 3);
+            // Paint(4, 1, new List<int>() { 3,2,8,9});
+            Books(new List<int>() { 73, 58, 30, 72, 44, 78, 23, 9 }, 5);
 
         }
 
@@ -453,7 +455,114 @@ namespace AdvanceBinarySearch
             }
             return false;
         }
-       
 
+        /// <summary>
+        /// Painter's Partition Problem
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="C"></param>
+        /// <returns></returns>
+        public static int Paint(int A, int B, List<int> C)
+        {
+            int n = C.Count(), l = int.MinValue, h = 0, mod = 10000003;
+            long ans = 0;
+            for (int i = 0; i < n; i++)
+            {
+                l = Math.Max(C[i], l);
+                h += C[i];
+            }
+            while (l <= h)
+            {
+                int mid = (l + h) / 2;
+                if (Check(mid, C, B, A))
+                {
+                    h = mid - 1;
+                    ans = mid % mod;
+                }
+                else
+                {
+                    l = mid + 1;
+                }
+            }
+            return (int)ans;
+        }
+
+        static bool Check(int m, List<int> times, int tasks, int workers)
+        {
+            int sum = 0, count = 0;
+            for (int i = 0; i < times.Count(); i++)
+            {
+                sum += times[i];
+                if (sum > m)
+                {
+                    count++;
+                    sum = times[i];
+                    if (count == workers)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        public static int Books(List<int> A, int B)
+        {
+            int n = A.Count(), low = int.MinValue, high = 0, ans = -1;
+            for (int i = 0; i < n; i++)
+            {
+                low = Math.Max(low, A[i]);
+                high += A[i];
+            }
+            while (low <= high)
+            {
+                int mid = (low + high) / 2;
+                if (Check(mid, B, A))
+                {
+                    ans = mid;
+                    high = mid - 1;
+
+                }
+                else
+                {
+                    low = mid + 1;
+                }
+            }
+            return ans;
+        }
+        public static bool Check(int mid, int B, List<int> A)
+        {
+            int sum = 0, count = 0, n = A.Count();
+            for(int i = 0; i < n; i++)
+            {
+                sum += A[i];
+                if(sum > mid)
+                {
+                    count++;
+                    sum = A[i];
+                }
+            }
+            return count == B - 1 ? true : false;
+        }
+
+        //public static int FoodPacketsDistribution(List<int> A, int B)
+        //{
+        //    int n = A.Count(), min = int.MaxValue, sum = 0;
+        //    for(int i = 0; i < n; i++)
+        //    {
+        //        sum += A[i];
+        //        min = Math.Min(A[i], min);
+        //    }
+        //    if(sum < B)
+        //    {
+        //        return 0;
+        //    }
+        //    int low = 1, high = min, ans = 0;
+        //    while(low <= high)
+        //    {
+
+        //    }
+        //}
     }
 }

@@ -18,7 +18,8 @@ namespace TwoPointers
             //    1, 1000000000
             //};
             //Solve(input, 1000000000);
-            Solve2(new List<int>() { 2, 3, 3, 5, 7, 7, 8, 9, 9, 10, 10 }, 11);
+            //Solve2(new List<int>() { 1, 1,2 ,2, 2, 3, 4, 5, 6, 7, 8, 9 }, 2);
+            var ans = ThreeSum(new List<int>() { 1, -4, 0, 0, 5, -5, 1, 0, -2, 4, -4, 1, -1, -4, 3, 4, -1, -1, -3 });
         }
 
         /// <summary>
@@ -108,33 +109,83 @@ namespace TwoPointers
         /// <returns></returns>
         public static int Solve2(List<int> A, int B)
         {
-            int n = A.Count(), p1 = 0, p2 = n - 1;
+            int i = 0, j = A.Count - 1, mod = 1000 * 1000 * 1000 + 7;
             long ans = 0;
-            while (p1 < p2)
+            while (i < j)
             {
-                int x = A[p1], y = A[p2];
-                if (A[p1] + A[p2] == B)
+                if (A[i] + A[j] == B)
                 {
-                    ans++;
-                    while (p1 < n && A[p1] == x)
+                    int ii = i, jj = j;
+                    if (A[i] == A[j])
                     {
-                        p1++;
+                        long cnt = j - i + 1;
+                        ans += (cnt * (cnt - 1) / 2) % mod;
+                        ans %= mod;
+                        break;
                     }
-                    while (p1 < p2 && p2 < n && A[p2] == y)
+                    else
+                    {
+                        // count number of elements with value A[i]
+                        while (A[i] == A[ii])
+                        {
+                            ii++;
+                        }
+                        int cnt1 = ii - i;
+                        i = ii;
+
+                        // count number of elements with value A[i]
+                        while (A[jj] == A[j])
+                        {
+                            jj--;
+                        }
+                        int cnt2 = j - jj;
+                        j = jj;
+                        ans += (cnt1 * cnt2) % mod;
+                        ans %= mod;
+                    }
+                }
+                else if (A[i] + A[j] > B)
+                {
+                    j--;
+                }
+                else i++;
+            }
+            return (int)ans;
+
+        }
+
+        /// <summary>
+        /// 3 Sum Zero
+        /// </summary>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public static List<List<int>> ThreeSum(List<int> A)
+        {
+            A.Sort();
+            int n = A.Count();
+            List<List<int>> ans = new List<List<int>>();
+            for (int i = 0; i < n - 3; i++)
+            {
+                int p1 = i + 1, p2 = n - 1 - i;
+                while (p1 < p2)
+                {
+                    if (A[p1] + A[p2] == 0 - A[i])
+                    {
+                        ans.Add(new List<int>() { A[i], A[p1], A[p2] });
+                        //p1++;
+                        p2--;
+                    }
+                    else if (A[p1] + A[p2] > 0 - A[i])
                     {
                         p2--;
                     }
-                }
-                if (A[p1] + A[p2] > B)
-                {
-                    p2--;
-                }
-                else
-                {
-                    p1++;
+                    else
+                    {
+                        p1++;
+                    }
                 }
             }
-            return (int)(ans % 1000000007);
+            return ans.GroupBy(x => string.Join(",", x), (g, items) => items.First()).ToList();
         }
     }
     
