@@ -59,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvanceHashing", "AdvanceHa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringsPatternMatching", "StringsPatternMatching\StringsPatternMatching.csproj", "{D4E8F21D-F81F-45AC-8E97-7AA62464E305}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvanceLinkedList", "AdvanceLinkedList\AdvanceLinkedList.csproj", "{6E32620C-1D4A-4C64-96A8-AD6F7B2D6A65}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -177,6 +179,10 @@ Global
 		{D4E8F21D-F81F-45AC-8E97-7AA62464E305}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4E8F21D-F81F-45AC-8E97-7AA62464E305}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4E8F21D-F81F-45AC-8E97-7AA62464E305}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E32620C-1D4A-4C64-96A8-AD6F7B2D6A65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E32620C-1D4A-4C64-96A8-AD6F7B2D6A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E32620C-1D4A-4C64-96A8-AD6F7B2D6A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E32620C-1D4A-4C64-96A8-AD6F7B2D6A65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
