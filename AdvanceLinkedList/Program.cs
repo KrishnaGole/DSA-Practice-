@@ -25,18 +25,18 @@ namespace AdvanceLinkedList
         //public static RandomListNode random;
         static void Main(string[] args)
         {
-            ListNode listNode = new ListNode(9)
+            ListNode listNode = new ListNode(1)
             {
-                next = new ListNode(9)
+                next = new ListNode(3)
             };
             listNode.next.next = new ListNode(1);
-            //listNode.next.next.next = new ListNode(4);
-            //listNode.next.next.next.next = new ListNode(5);
-            //listNode.next.next.next.next.next = new ListNode(6);
-            //listNode.next.next.next.next.next.next = new ListNode(7);
-            //listNode.next.next.next.next.next.next.next = new ListNode(8);
-            //listNode.next.next.next.next.next.next.next.next= new ListNode(9);
-            //listNode.next.next.next.next.next.next.next.next.next = new ListNode(10);
+            //listNode.next.next.next = new ListNode(1);
+            //listNode.next.next.next.next = new ListNode(2);
+            //listNode.next.next.next.next.next = new ListNode(2);
+            //listNode.next.next.next.next.next.next = new ListNode(1);
+            //listNode.next.next.next.next.next.next.next = new ListNode(3);
+            //listNode.next.next.next.next.next.next.next.next = new ListNode(2);
+            //listNode.next.next.next.next.next.next.next.next.next = new ListNode(2);
             //RandomListNode randomListNode = new RandomListNode(1);
             //randomListNode.next = new RandomListNode(2);
             //randomListNode.next.next = new RandomListNode(3);
@@ -82,7 +82,8 @@ namespace AdvanceLinkedList
             //solution.Get(1);
             //solution.Get(2);
             //SwapPairs(listNode);
-            AddTwoNumbers(listNode, listnode1);
+            //AddTwoNumbers(listNode, listnode1);
+            Solve3(listNode);
             Console.ReadLine();
 
             //ReverseList(listNode);
@@ -796,6 +797,61 @@ namespace AdvanceLinkedList
                
             }
             return ans.next;
+        }
+
+        public static int Solve3(ListNode A)
+        {
+            ListNode h1 = A;
+            ListNode h2 = null;
+            int ans = int.MinValue, cnt = 0;
+            while (h1 != null)
+            {
+                ListNode t1 = h1, t2 = h2;
+                cnt = 0;
+                while (t1 != null && t2 != null)
+                {
+                    if (t1.val != t2.val)
+                    {
+                        break;
+                    }
+                    cnt += 2;
+                    t1 = t1.next;
+                    t2 = t2.next;
+                }
+                ans = Math.Max(ans, cnt);
+
+                ListNode t = h1;
+                h1 = h1.next;
+                t.next = h2;
+                h2 = t;
+
+            }
+            h1 = h2.next;
+            h2.next = null;
+            while (h1 != null)
+            {
+                ListNode t1 = h1, t2 = h2.next;
+                cnt = 1;
+                while (t1 != null && t2 != null)
+                {
+                    if (t1.val != t2.val)
+                    {
+                        break;
+                    }
+                    cnt += 2;
+                    t1 = t1.next;
+                    t2 = t2.next;
+                }
+                ans = Math.Max(ans, cnt);
+
+                ListNode t = h1;
+                h1 = h1.next;
+                t.next = h2;
+                h2 = t;
+
+            }
+            return ans;
+
         }
     }
 
