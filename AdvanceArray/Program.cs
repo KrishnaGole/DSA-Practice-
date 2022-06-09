@@ -8,6 +8,13 @@ namespace AdvanceArray
 {
     internal class Program
     {
+        public class Interval
+        {
+            public int start;
+            public int end;
+            public Interval() { start = 0; end = 0; }
+            public Interval(int s, int e) { start = s; end = e; }
+        }
         static void Main(string[] args)
         {
             //int ans = Trap(new List<int>() { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 });
@@ -24,8 +31,13 @@ namespace AdvanceArray
             //Solve(new List<List<int>>() { new List<int>() { 1, 2 }, new List<int>() { 8, 10 } }, 3, 6);
             //FirstMissingPositive(new List<int>() { 2, 3, 1, 2 });
             //MaxArr(new List<int>() { 1, 3, -1 });
-            PlusOne(new List<int>() { 0, 6, 0, 6, 4, 8, 8, 1 });
+            //PlusOne(new List<int>() { 0, 6, 0, 6, 4, 8, 8, 1 });
+            //(1, 10), (2, 9), (3, 8), (4, 7), (5, 6), (6, 6)
+            Merge(new List<Interval>() {
+                new Interval(1,10),new Interval(2,9),new Interval(4,7),new Interval(3,8), new Interval(5,6), new Interval(6,6)});
             
+
+
 
         }
 
@@ -318,6 +330,49 @@ namespace AdvanceArray
             //result.Reverse();
             
             return result;
+        }
+
+        /// <summary>
+        /// Merge Overlapping Intervals
+        /// </summary>
+        /// <param name="intervals"></param>
+        /// <returns></returns>
+        public static List<Interval> Merge(List<Interval> intervals)
+        {
+            List<Interval> ans = new List<Interval>();
+            intervals.Sort((Interval a, Interval b) => {
+                int start1 = a.start;
+                int start2 = b.start;
+                if (start1 < start2)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 1;
+                }
+            });
+            int j = 0;
+            for (int i = 0; i < intervals.Count; i++)
+            {
+                for (j = i + 1; j < intervals.Count; j++)
+                {
+                    if (intervals[i].end >= intervals[j].start)
+                    {
+                        intervals[i].end = Math.Max(intervals[j].end, intervals[i].end);
+                        intervals[i].start = Math.Min(intervals[j].start, intervals[i].start);
+                    }
+                    else
+                    {
+                        
+                        break;
+                    }
+                }
+                ans.Add(intervals[i]);
+                i = --j;
+
+            }
+            return ans;
         }
     }
 }
