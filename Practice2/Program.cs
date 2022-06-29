@@ -27,7 +27,7 @@ namespace Practice2
             //PickFromBothSide(new List<int>() { -533, -666, -500, 169, 724, 478, 358, -38, -536, 705, -855, 281, -173, 961, -509, -5, 942, -173, 436, -609, -396, 902, -847, -708, -618, 421, -284, 718, 895, 447, 726, -229, 538, 869, 912, 667, -701, 35, 894, -297, 811, 322, -667, 673, -336, 141, 711, -747, -132, 547, 644, -338, -243, -963, -141, -277, 741, 529, -222, -684, 35 }, 48);
             //ClosestMinMax(new List<int>() { 814, 761, 697, 483, 981 });
             //var ans = LargestNumber(new List<int>() { 3, 30, 34, 5, 9 });
-            Fanstatic4(new List<int>() {  });
+            //Fanstatic4(new List<int>() {  });
             //int[] arr = { 2, 2, 4, 5};
 
             //// Auxiliary space to store each path
@@ -35,8 +35,8 @@ namespace Practice2
 
             //ans = 0;
             // PrintSubsequences(arr.ToList(), 0, new List<int>() { }, 3,7);
-           // var result = Solve1(new List<int>() { 1,1,3,2,4,5,6});
-
+            // var result = Solve1(new List<int>() { 1,1,3,2,4,5,6});
+            RoundedDivision(398);
             Console.ReadLine();
            
 
@@ -365,6 +365,16 @@ namespace Practice2
                 }
             }
             return count == 3 ? "YES" : "NO";
+        }
+
+
+        public static int RoundedDivision(int A)
+        {
+            decimal num = (decimal)A / (decimal)200;
+            //return (int)Math.Round(A / 200, MidpointRounding.AwayFromZero);
+            return (int)Math.Round(num);
+
+
         }
 
     }

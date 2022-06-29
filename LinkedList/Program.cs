@@ -18,6 +18,14 @@ namespace LinkedList
         public static ListNode Head = null;
         static void Main(string[] args)
         {
+            ListNode listNode1 = new ListNode(2);
+            listNode1.next = new ListNode(4);
+            listNode1.next.next = new ListNode(3);
+
+            ListNode listNode2 = new ListNode(5);
+            listNode2.next = new ListNode(6);
+            listNode2.next.next = new ListNode(4);
+            AddTwoNumbers(listNode1, listNode2);
             // List<List<int>> vs = new List<List<int>>()
             // {
             //     new List<int>(){1, 13, -1},
@@ -42,11 +50,11 @@ namespace LinkedList
             //     //new List<int>(){1, 19, -1},
             // };
             //Solve(vs);
-            insert_node(1, 23);
-            insert_node(2, 24);
-            print_ll();
-            delete_node(1);
-            print_ll();
+            //insert_node(1, 23);
+            //insert_node(2, 24);
+            //print_ll();
+            //delete_node(1);
+            //print_ll();
 
 
         }
@@ -261,6 +269,40 @@ namespace LinkedList
                 temp = temp.next;
             }
             return ++count;
+        }
+
+        public static ListNode AddTwoNumbers(ListNode l1, ListNode l2)
+        {
+            ListNode ans = new ListNode(-1), temp1 = l1, temp2 = l2, temp3 = ans;
+            int carry = 0;
+            while (temp1 != null || temp2 != null)
+            {
+                int val = 0;
+                if (temp1 != null)
+                {
+                    val += temp1.value;
+                    temp1 = temp1.next;
+                }
+                if (temp2 != null)
+                {
+                    val += temp2.value;
+                    temp2 = temp2.next;
+                }
+                val += carry;
+                temp3.next = new ListNode(val % 10);
+                if (val + carry > 9)
+                {
+                    carry = val / 10;
+                }
+                else
+                {
+                    carry = 0;
+                }
+               
+                temp3 = temp3.next;
+            }
+            return ans.next;
+
         }
     }
 }
