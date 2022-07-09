@@ -15,6 +15,7 @@ namespace AdvanceTree
     }
    internal class Program
     {
+        static Dictionary<int, int> map = new Dictionary<int, int>();
         List<int> path = new List<int>();
         public List<List<int>> solve(TreeNode A)
         {
@@ -88,7 +89,7 @@ namespace AdvanceTree
              treeNode.left = new TreeNode(4);
              treeNode.right = new TreeNode(9);
              treeNode.right.left = new TreeNode(-8);
-           
+
 
 
             //treeNode.left = new TreeNode(2);
@@ -125,7 +126,14 @@ namespace AdvanceTree
             //IsSymmetric(null);
             //Solve(treeNode);
             //Kthsmallest(treeNode, 1);
-            Solve(treeNode, 10);
+            //Solve(treeNode, 10);
+            //TreeNode node = BuildTree(new List<int>() { 6, 1, 3, 2 }, new List<int>() { 6, 3, 2, 1 });
+            List<int> preOrder = new List<int>() { 1, 5, 6, 4 };
+            TreeNode root = null;
+            for(int i = 0; i < preOrder.Count(); i++)
+            {
+                root = Insert(root, preOrder[i]);
+            }
         }
 
         public static List<List<int>> LevelOrder(TreeNode A)
@@ -577,6 +585,67 @@ namespace AdvanceTree
             IsEqualToB(A.right, B);
             return sum;
                 //+ leftSum + rightSum;
+        }
+
+        public static TreeNode BuildTree(List<int> A, List<int> B)
+        {
+            int n = A.Count(), m = B.Count();
+            for (int i = 0; i < n; i++)
+            {
+                map.Add(A[i], i);
+            }
+            //B.Reverse();
+            return CBT(B, m-1, 0, A, 0, n - 1);
+        }
+
+        public static TreeNode CBT(List<int> postOrder, int postStart, int postEnd, List<int> inOrder, int inStart, int inEnd)
+        {
+            if (postEnd > postStart)
+            {
+                return null;
+            }
+            TreeNode root = new TreeNode(postOrder[postEnd]);
+            int idx = map[root.val];
+            int n = idx - inStart;
+            root.left = CBT(postOrder, postEnd - n, postStart, inOrder, inStart, idx - 1);
+            root.right = CBT(postOrder, postStart + n + 1, postEnd, inOrder, idx + 1, inEnd);
+           // root.right = CBT(postOrder, postStart + n + 1, postEnd, inOrder, idx + 1, inEnd);
+            //root.left = CBT(postOrder, postStart + 1, postStart + n, inOrder, inStart, idx - 1);
+
+            return root;
+        }
+
+        public static TreeNode Insert(TreeNode root, int element)
+        {
+            if(root == null)
+            {
+                root = new TreeNode(element);
+                return root;
+            }
+            var parent = root;
+            var curr = root;
+            while (curr != null)
+            {
+                parent = curr;
+                if(element <= curr.val)
+                {
+                    curr = curr.left;
+                }
+                else
+                {
+                    curr = curr.right;
+                }
+            }
+            if(element < parent.val)
+            {
+                parent.left = new TreeNode(element);
+            }
+            else
+            {
+                parent.right = new TreeNode(element);
+            }
+            return root;
+
         }
     }
 }

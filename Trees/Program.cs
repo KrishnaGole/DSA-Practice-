@@ -23,7 +23,7 @@ namespace Trees
 
         public static int IsSymmetric(TreeNode A)
         {
-            TreeNode actual = A.;
+            TreeNode actual = A;
             Invert(A);
             return Compare(A, actual);
         }

@@ -11,7 +11,12 @@ namespace TriesOfCharacters
         static void Main(string[] args)
         {
             //Solve(new List<string>() { "A", "B" }, new List<string>() { "A", "B" });
-            Prefix(new List<string>() { "zebra", "dog", "duck", "dove" });
+            //Prefix(new List<string>() { "zebra", "dog", "duck", "dove" });
+            MaximumXOR maximumXOR = new MaximumXOR();
+            maximumXOR.MaxXOR(new List<int>() { 1, 2, 3, 4, 5 });
+            List<int> ans = new List<int>() { 1, 2, 3, 4, 5 };
+            ans.Remove(ans.Count());
+            Console.Write("");
         }
 
         /// <summary>

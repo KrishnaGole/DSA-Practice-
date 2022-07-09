@@ -77,6 +77,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodingContest", "CodingCont
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TriesOfCharacters", "TriesOfCharacters\TriesOfCharacters.csproj", "{BE591447-6A0C-40B4-BCE5-B0DAC97E4994}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heaps", "Heaps\Heaps.csproj", "{6E389DAD-6E22-4724-8B85-904D531AEB80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -231,6 +233,10 @@ Global
 		{BE591447-6A0C-40B4-BCE5-B0DAC97E4994}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE591447-6A0C-40B4-BCE5-B0DAC97E4994}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE591447-6A0C-40B4-BCE5-B0DAC97E4994}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E389DAD-6E22-4724-8B85-904D531AEB80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E389DAD-6E22-4724-8B85-904D531AEB80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E389DAD-6E22-4724-8B85-904D531AEB80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E389DAD-6E22-4724-8B85-904D531AEB80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
