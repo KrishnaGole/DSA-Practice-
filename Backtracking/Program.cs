@@ -17,7 +17,26 @@ namespace Backtracking
             //Appoitments.Add(new List<int> { 2, 4 });
             //Appoitments.Add(new List<int> { 8, 12 });
             //Appoitments =  Appoitments.OrderBy(a => a[0]).ToList();
-           var result =  SolveNQueens(4);
+            //var result =  SolveNQueens(4);
+            var A = new List<List<int>>()
+           {
+               new List<int>(){ 1, 1, 1 },
+               new List<int>(){ 1, 0, 1 },
+               new List<int>(){ 0, 0, 1 },
+
+           };
+            int n = A.Count(), m = A[0].Count();
+            var pathIndex = new List<KeyValuePair<int, int>>();
+            var path = new List<List<int>>();
+            for(int i = 0; i < n; i++)
+            {
+                path.Add(new int[m].ToList());
+            }
+            
+            Path(A, n, m, 0, 0, pathIndex, path);
+            path[n - 1][m - 1] = 1;
+            
+
            
 
 
@@ -195,6 +214,36 @@ namespace Backtracking
                 c++;
             }
             return true;
+        }
+
+        public static void Path(List<List<int>> mat, int n, int m, int i, int j, List<KeyValuePair<int, int>> pathIndex, List<List<int>> path)
+        {
+            if (i < 0 || i >= n || j < 0 || j >= m)
+            {
+                return;
+            }
+            if (mat[i][j] == 0 || mat[i][j] == 2)
+            {
+                return;
+            }
+            if (i == n - 1 && j == m - 1)
+            {
+                foreach(var item in pathIndex)
+                {
+                    path[item.Key][item.Value] = 1;
+                }
+            }
+            if (mat[i][j] == 1)
+            {
+                mat[i][j] = 2;
+                var temp = new KeyValuePair<int, int>(i, j);
+                pathIndex.Add(temp);
+                Path(mat, n, m, i - 1, j, pathIndex, path);
+                Path(mat, n, m, i + 1, j, pathIndex, path);
+                Path(mat, n, m, i, j - 1, pathIndex, path);
+                Path(mat, n, m, i, j + 1, pathIndex, path);
+                pathIndex.Remove(temp);
+            }
         }
 
 
