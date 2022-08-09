@@ -41,7 +41,8 @@ namespace DP
             //Coinchange2(new List<int>() { 4,5,6 }, 12);
             List<int> vs1 = new List<int>() { 45, 17, 34, 27, 12, 22 };
             //Solve(vs1);
-            ChordCnt(3);
+            //ChordCnt(3);
+            Knapsack2(new List<int>() { 6, 10, 12 }, new List<int>() { 10, 20, 30 }, 50);
            
             
         }
@@ -388,21 +389,77 @@ namespace DP
             return dp[i, j];
         }
 
-        public static int ChordCnt(int A)
+        public int ChordCnt(int A)
         {
             int[] chords = new int[A + 1];
+            int mod = 100000007;
             chords[0] = 1;
-            for(int k = 1; k <= A; k++)
+            for (int k = 1; k <= A; k++)
             {
                 int i = k - 1, j = 0, sum = 0;
-                while(i >= 0)
+                while (i >= 0)
                 {
-                    sum += chords[i] * chords[j];
+                    sum = (((sum % mod) + chords[i] % mod * chords[j] % mod % mod) % mod) % mod;
+                    //sum %= mod;
                     i--;
                     j++;
                 }
+                chords[k] = sum;
             }
             return chords[A];
+        }
+
+
+        public static int Knapsack2(List<int> A, List<int> B, int C)
+        {
+            int n = A.Count(), m = A.Sum(); int? ans = null;
+            int[,] dp = new int[2, m + 1];
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j <= m; j++)
+                {
+                    dp[i, j] = 1000000000;
+                }
+            }
+            dp[0, 0] = 0;
+            for (int i = 1; i <= n; i++)
+            {
+                for (int j = 0; j <= m; j++)
+                {
+                    int temp = dp[(i - 1)%2, j];
+                    if (j >= A[i - 1])
+                    {
+                        temp = Math.Min(temp, dp[(i - 1)%2, j - A[i - 1]] + B[i - 1]);
+                    }
+                    dp[(i%2), j] = temp;
+                }
+            }
+           
+            for (int i = m; i >= 0; i--)
+            {
+                if (dp[1, i] <= C)
+                {
+                    return i;
+                }
+                //if (dp[1, i] <= C)
+                //{ 
+                //    if(ans == null)
+                //    {
+                //        ans = i;
+                //    }
+                //    if(i != 0 && dp[1, i] == dp[1, i-1])
+                //    {
+                //        continue;
+                //    }
+                //    else
+                //    {
+                //        ans = i;
+                //        break;
+                //  }
+           // }
+                
+            }
+            return 0;
         }
 
     }
