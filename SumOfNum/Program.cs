@@ -57,9 +57,47 @@ namespace SumOfNum
             //BalancedNumber("12345");
             //Console.WriteLine(RemoveDups("zvvo"));
             //Console.WriteLine(kthsmallest(new List<int>() { 94, 87, 100, 11, 23, 98, 17, 35, 43, 66, 34, 53, 72, 80, 5, 34, 64, 71, 9, 16, 41, 66, 96 }, 19));
-            Console.WriteLine(ReverseArray(new List<int>() { 1, 2, 3, 2, 1 }));
-            Console.ReadLine();
+            //Console.WriteLine(ReverseArray(new List<int>() { 1, 2, 3, 2, 1 }));
+            //Console.ReadLine();
+            //string[] str = new string[5];
+            //str[0] = "2";
+            //str[1] = "3";
+            //str[2] = "1";
+            //str[3] = "4";
+            //str[4] = "2";
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    if (i != 3 - 1)
+            //    eve{
+            //        Console.Write(5 + " ");
+            //        // Console.Write(input[i] + " ");
+            //    }
+            //    Console.Write(str[i] + " ");
+            //}
+            
+        }
 
+        public static int Solve(List<int> A, int B)
+        {
+            int n = A.Count();
+            int ans = 0;
+            for (int i = 0; i < n - 1; i++)
+            {
+                if (A[i] + A[i + 1] > B)
+                {
+                    if (A[i] > A[i + 1])
+                    {
+                        A[i]--;
+                    }
+                    else
+                    {
+                        A[i + 1]--;
+                    }
+                    ans++;
+                    i--;
+                }
+            }
+            return ans;
         }
 
         public static void Reverse(int num)
@@ -680,4 +718,6 @@ namespace SumOfNum
 
 
     }
+
+    
 }

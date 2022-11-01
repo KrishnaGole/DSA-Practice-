@@ -19,12 +19,14 @@ namespace AdvanceArray
         {
             //int ans = Trap(new List<int>() { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 });
             // int ans = Trap(new List<int>() { 3,10,6,7,0,2,-1 });
-            //List<List<int>> vs = new List<List<int>>()
-            //{
-            //   new List<int>(){1,2,3},
-            //   new List<int>(){4,5,6},
-            //   new List<int>(){7,8,9},
-            //};
+            List<List<int>> vs = new List<List<int>>()
+            {
+               new List<int>(){1, 1, 1, 1, 1},
+               new List<int>(){2, 2, 2, 2, 2},
+               new List<int>(){3, 8, 6, 7, 3},
+               new List<int>(){4, 4, 4, 4, 4},
+               new List<int>(){5, 5, 5, 5, 5}
+            };
             // Solve(vs, new List<int>() { 1}, new List<int>() { 1}, new List<int>() { 2 }, new List<int>() {2});
             //Maxset(new List<int>() { 756898537, -1973594324, -2038664370, -184803526, 1424268980 });
             //Flip("010");
@@ -35,9 +37,12 @@ namespace AdvanceArray
             //(1, 10), (2, 9), (3, 8), (4, 7), (5, 6), (6, 6)
             Merge(new List<Interval>() {
                 new Interval(1,10),new Interval(2,9),new Interval(4,7),new Interval(3,8), new Interval(5,6), new Interval(6,6)});
-            
-
-
+            // Solve(vs, 3);
+            //MaxSumSqrSubMatrix(vs, 3);
+            //Candy(new List<int>() { 3, 1, 3 });
+            //PickFromBothSide(new List<int>() { 5, -2, 3, 1, 2 }, 3);
+            //Solve(new List<int>() { 1, 12, 10, 3, 14, 10, 5 }, 8);
+            Solve(new List<int>() { 1, 2, 3, 4, 0 });
 
         }
 
@@ -364,7 +369,7 @@ namespace AdvanceArray
                     }
                     else
                     {
-                        
+
                         break;
                     }
                 }
@@ -373,6 +378,175 @@ namespace AdvanceArray
 
             }
             return ans;
+        }
+
+        public static int Solve(List<List<int>> A, int B)
+        {
+            int n = A.Count(), m = A[0].Count(), ans = A[0][0];
+            
+            return ans;
+        }
+        public static int MaxSubArrSum(List<int> arr)
+        {
+            int n = arr.Count(), ans = int.MinValue, sum = 0;
+            for (int i = 0; i < n; i++)
+            {
+                sum += arr[i];
+                ans = Math.Max(ans, sum);
+                sum = Math.Max(0, sum);
+            }
+            return ans;
+        }
+
+        public static int MaxSumSqrSubMatrix(List<List<int>> A, int B)
+        {
+            var strips = new List<List<int>>();
+            for (var i = 0; i < A.Count; i++)
+            {
+                strips.Add(new List<int>());
+                for (var j = 0; j <= A.Count - B; j++)
+                {
+                    var sum = 0;
+                    for (var k = j; k < j + B; k++)
+                    {
+                        sum += A[i][k];
+                    }
+                    strips[i].Add(sum);
+                }
+            }
+
+
+            var maxSum = GetSum(strips, 0, 0, B);
+            for (var i = 0; i <= A.Count - B; i++)
+            {
+                for (var j = 0; j <= A.Count - B; j++)
+                {
+                    var currSum = GetSum(strips, i, j, B);
+                    if (currSum > maxSum)
+                    {
+                        maxSum = currSum;
+                    }
+                }
+            }
+            return maxSum;
+        }
+
+        private static int GetSum(List<List<int>> matrix, int x, int y, int size)
+        {
+            var sum = 0;
+            for (var i = x; i < x + size; i++)
+            {
+                sum += matrix[i][y];
+            }
+            return sum;
+        }
+
+        public static int Candy(List<int> A)
+        {
+            int n = A.Count();
+            int[] candies = new int[n];
+            candies[0] = 1;
+
+            for (int i = 1; i < n; i++)
+            {
+                if (A[i] > A[i - 1])
+                {
+                    candies[i] = candies[i - 1] + 1;
+                }
+                else
+                {
+                    candies[i] = 1;
+                }
+            }
+
+            for (int i = n - 2; i >= 0; i--)
+            {
+                if (A[i] > A[i + 1])
+                {
+                    candies[i] = Math.Max(candies[i], candies[i + 1] + 1);
+                }
+            }
+
+            return candies.ToList().Sum(); ;
+        }
+
+        public static int PickFromBothSide(List<int> ints, int B)
+        {
+            int n = ints.Count(), curr = 0, ans = int.MinValue;
+
+            for(int i = 0; i < B; i++)
+            {
+                curr += ints[i];
+            }
+            int back = B - 1;
+            ans = Math.Max(ans, curr);
+
+            for(int i = n-1; i >= n-B; i--)
+            {
+                curr += ints[i];
+                curr -= ints[back];
+                back--;
+                ans = Math.Max(ans, curr);
+            }
+            return ans;
+
+
+        }
+
+        public static int Solve(List<int> A, int B)
+        {
+            
+            int n = A.Count(), ans = int.MaxValue, lessThanBcnt = 0;
+            List<int> indexs = new List<int>();
+            for (int i = 0; i < n; i++)
+            {
+                if (A[i] <= B)
+                {
+                    lessThanBcnt++;
+                    indexs.Add(i);
+                    
+                }
+            
+            }
+            for(int i = 0; i <  indexs.Count(); i++)
+            {
+                int cnt = lessThanBcnt, minCnt = 0;
+
+                for (int j = indexs[i]; j < n; j++)
+                {
+
+                    if (A[j] > B && cnt > 0)
+                    {
+                        minCnt++;
+                    }
+                    cnt--;
+                }
+                if(cnt <= 0)
+                {
+                    ans = Math.Min(ans, minCnt);
+                }
+
+            }
+
+            return ans;
+
+        }
+
+        public static int Solve(List<int> A)
+        {
+            int n = A.Count(), cnt = 0;
+            for (int i = 0; i < n; i++)
+            {
+                while (A[i] != i)
+                {
+                    int curr = A[i];
+                    int temp = A[curr];
+                    A[curr] = curr;
+                    A[i] = temp;
+                    cnt++;
+                }
+            }
+            return cnt;
         }
     }
 }
