@@ -344,6 +344,7 @@ namespace AdvanceArray
         /// <returns></returns>
         public static List<Interval> Merge(List<Interval> intervals)
         {
+
             List<Interval> ans = new List<Interval>();
             intervals.Sort((Interval a, Interval b) => {
                 int start1 = a.start;
