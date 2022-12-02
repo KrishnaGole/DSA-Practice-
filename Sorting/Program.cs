@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,15 +21,47 @@ namespace Sorting
             //QuickSorting quickSorting = new QuickSorting();
             //List<int> vs = new List<int>() { 10, 7, 8, 9, 1, 5 };
             // quickSorting.QuickSort(vs, 0, vs.Count() - 1);
-            solve(new List<int>() { 1, 2, 3 });
+            //solve(new List<int>() { 1, 2, 3 });
+            //List<List<int>> ints = new List<List<int>>()
+            //{
+            //    new List<int>(){1,3},
+            //    new List<int>(){7,8},
+            //    new List<int>(){5,3},
+            //    new List<int>(){2,9},
+            //    new List<int>(){-2,2},
+
+            //};
+            //Solve(ints, 1);
+            //var ans = Solve1(new List<int>() { 2000000000, 2000000000, -2000000000 });
+            //SubUnsort(new List<int>() { 1, 3, 2, 4, 5 });
+            //int ans = Math.Abs(11 - (-1));
+            //int ans1 = Math.Abs(5 - 3);
+            int n = Convert.ToInt32(Console.ReadLine());
+            for (int i = 0; i < n; i++)
+            {
+                int size = Convert.ToInt32(Console.ReadLine());
+                string[] ints = Console.ReadLine().Split(' ');
+                int[] arr = new int[size];
+                int j = 0;
+                for (j = 0; j < ints.Length; j++)
+                {
+                    arr[j] = Convert.ToInt32(ints[j].Trim());
+                }
+                for (j = size - 1; j >= 0; j--)
+                {
+                    Console.Write(arr[j] + " ");
+                }
+            }
+            string[] ints = Console.ReadLine().Split(' ');
+            MinMaxMagic(new List<int>() { 3, 11, -1, 5 });
             Console.ReadLine();
         }
 
         static bool checkSorted(List<int> vs)
         {
-            for(int i = 0; i < vs.Count() - 2; i++)
+            for (int i = 0; i < vs.Count() - 2; i++)
             {
-                if(vs[i] > vs[i + 1])
+                if (vs[i] > vs[i + 1])
                 {
                     return false;
                 }
@@ -39,7 +72,7 @@ namespace Sorting
         //static bool recursiveCheckSorted(List<int> vs)
         //{
         //    //int i = 0;
-           
+
         //    //if(i > vs.Count() - 2 && vs[i] > vs[i+1])
         //    //{
         //    //    return false;
@@ -53,15 +86,15 @@ namespace Sorting
             for (int i = 1; i < vs.Count(); i++)
             {
                 count = 0;
-                for(int j = 0; j <= vs.Count() - 1 - i; j++)
+                for (int j = 0; j <= vs.Count() - 1 - i; j++)
                 {
-                    if(vs[j] > vs[j + 1])
+                    if (vs[j] > vs[j + 1])
                     {
                         count++;
-                        Swap(vs, j, j+1);
+                        Swap(vs, j, j + 1);
                     }
                 }
-                if(count == 0)
+                if (count == 0)
                 {
                     break;
                 }
@@ -149,7 +182,7 @@ namespace Sorting
             int n = A.Count();
             int ans = 0;
             A = A.OrderByDescending(x => x).ToList();
-            for(int i = 0; i < n; i++)
+            for (int i = 0; i < n; i++)
             {
                 ans += A[i] * (i + 1);
             }
@@ -160,10 +193,10 @@ namespace Sorting
         public static string LargestNum(List<int> A)
         {
             int n = A.Count();
-           
+
             StringBuilder ans = new StringBuilder();
             A.Sort(new CustomNumberComparer());
-            for(int i = 0; i < n; i++)
+            for (int i = 0; i < n; i++)
             {
                 ans.Append(A[i]);
             }
@@ -204,8 +237,203 @@ namespace Sorting
                 return (he % C * A % C) % C;
             }
         }
-    }
 
+        /// <summary>
+        /// B Closest Points to Origin
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <returns></returns>
+        public static List<List<int>> Solve(List<List<int>> A, int B)
+        {
+            A.Sort((List<int> list1, List<int> list2) =>
+            {
+                long d1 = (list1[0] * list1[0]) + (list1[1] * list1[1]);
+                long d2 = (list2[0] * list2[0]) + (list2[1] * list2[1]);
+                if (d1 < d2)
+                {
+                    return -1;
+                }
+                else if (d1 > d2)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            });
+
+            return A.Take(B).ToList();
+        }
+
+        public static int Solve(List<int> A)
+        {
+            int n = A.Count(), ans = 0;
+            List<KeyValuePair<long, long>> keyValuePairs = new List<KeyValuePair<long, long>>();
+            for (int i = 0; i < n; i++)
+            {
+                keyValuePairs.Add(new KeyValuePair<long, long>(A[i], i));
+            }
+            keyValuePairs.Sort((KeyValuePair<long, long> a, KeyValuePair<long, long> b) =>
+            {
+                if (a.Key > b.Key)
+                {
+                    return -1;
+                }
+                else if(a.Key < b.Key)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            });
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = n - 1; j > 0; j--)
+                {
+                    if (keyValuePairs[i].Key > (2 * keyValuePairs[j].Key))
+                    {
+                        if (keyValuePairs[i].Value < keyValuePairs[j].Value)
+                        {
+                            ans++;
+                        }
+                    }
+                    else
+                    {
+                        break;
+
+                    }
+                }
+            }
+            return ans;
+
+        }
+
+        public static int Solve1(List<int> A)
+        {
+            return MergeSort(A, 0, A.Count() - 1);
+        }
+
+        public static int MergeSort(List<int> A, int s, int e)
+        {
+            if (s == e)
+            {
+                return 0;
+            }
+            int mid = (s + e) / 2, ans = 0;
+            ans += MergeSort(A, s, mid);
+            ans += MergeSort(A, mid + 1, e);
+            ans += Merge(A, s, mid, e);
+            return ans;
+        }
+
+        public static int Merge(List<int> A, int s, int m, int e)
+        {
+            int[] temp = new int[e - s + 1];
+            int p1 = s, p2 = m + 1, p3 = 0, count = 0;
+            while (p1 <= m && p2 <= e)
+            {
+                if ((long)(A[p1]) > (long)(2 * A[p2]))
+                {
+                    count += m - p1 + 1;
+                    p2++;
+                }
+                else
+                {
+                    p1++;
+                }
+            }
+            p1 = s;
+            p2 = m + 1;
+            while (p1 <= m && p2 <= e)
+            {
+                if (A[p1] <= A[p2])
+                {
+                    temp[p3] = A[p1];
+                    p1++;
+                    p3++;
+                }
+                else
+                {
+                    temp[p3] = A[p2];
+                    p2++;
+                    p3++;
+                }
+            }
+
+            while (p1 <= m)
+            {
+                temp[p3] = A[p1];
+                p1++;
+                p3++;
+            }
+
+            while (p2 <= e)
+            {
+                temp[p3] = A[p2];
+                p2++;
+                p3++;
+            }
+
+            for (int i = 0; i <= e - s; i++)
+            {
+                A[i + s] = temp[i];
+            }
+            return count;
+        }
+
+        public static List<int> SubUnsort(List<int> A)
+        {
+            int n = A.Count(), firstIndex = 0, secondIndex = 0;
+            //List<int> temp = new List<int>(A);
+            //temp.Sort();
+            for (int i = 0; i < n - 1; i++)
+            {
+                if (A[i] > A[i + 1])
+                {
+                    firstIndex = i;
+                    break;
+                }
+            }
+            for (int i = n - 1; i > 0; i--)
+            {
+                if (A[i] < A[i - 1])
+                {
+                    secondIndex = i;
+                    break;
+                }
+            }
+
+            return firstIndex == 0 && secondIndex == 0 ? new List<int>() { -1 } :
+            new List<int>() { firstIndex, secondIndex };
+
+        }
+
+        public static List<int> MinMaxMagic(List<int> A)
+        {
+            A.Sort();
+            int n = A.Count(), i = 0, j = n - 1, max = 0, min = 0, mod = 1000000007;
+            while (i < j)
+            {
+                max += Math.Abs((A[j] % mod - (A[i]) % mod) % mod);
+                max %= mod;
+                i++;
+                j--;
+
+            }
+
+            for (int k = 0; k < n; k += 2)
+            {
+                min += Math.Abs((A[k] % mod - (A[k + 1] % mod)) % mod);
+                min %= mod;
+            }
+
+            return new List<int>() { min, max };
+        }
+    }
     public class CustomNumberComparer : IComparer<int>
     {
         public int Compare(int x, int y)

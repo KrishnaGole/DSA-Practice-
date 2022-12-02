@@ -19,7 +19,12 @@ namespace TwoPointers
             //};
             //Solve(input, 1000000000);
             //Solve2(new List<int>() { 1, 1,2 ,2, 2, 3, 4, 5, 6, 7, 8, 9 }, 2);
-            var ans = ThreeSum(new List<int>() { 1, -4, 0, 0, 5, -5, 1, 0, -2, 4, -4, 1, -1, -4, 3, 4, -1, -1, -3 });
+            //var ans = ThreeSum(new List<int>() { 1, -4, 0, 0, 5, -5, 1, 0, -2, 4, -4, 1, -1, -4, 3, 4, -1, -1, -3 });
+            //Solve3(new List<int>() { 1, 2, 3, 4, 5 }, 5);
+            //Solve(new List<int>() { 1 }, new List<int>() { 2,4 }, 4);
+            //Solve4(new List<int>() { 1, 4, 5, 8, 10 }, new List<int>() { 6, 9, 15 }, new List<int>() { 2, 3, 6, 6 });
+            //ThreeSumClosest(new List<int>() { 2, 1, -9, -7, -8, 2, -8, 2, 3, -8 }, -1);
+            //SortColors(new List<int>() { 2, 0, 0, 1, 0, 0, 2, 2, 1, 1, 0, 0, 1, 0, 2, 2 });
         }
 
         /// <summary>
@@ -187,6 +192,157 @@ namespace TwoPointers
             }
             return ans.GroupBy(x => string.Join(",", x), (g, items) => items.First()).ToList();
         }
+
+        /// <summary>
+        ///  Another Count Rectangles
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <returns></returns>
+        public static int Solve3(List<int> A, int B)
+        {
+            int n = A.Count() - 1, l = 0, r = n, cnt = 0;
+            while (l <= n && r >= 0)
+            {
+                if (A[l] * (long)A[r] < B)
+                {
+                    cnt += r + 1;
+                    l++;
+                }
+                else
+                {
+                    r--;
+                }
+            }
+            return cnt;
+        }
+
+        public static List<int> Solve(List<int> A, List<int> B, int C)
+        {
+            int n = A.Count(), m = B.Count(), diff = int.MaxValue, i = 0, j = m - 1,
+            index1 = n, index2 = m;
+            while (i < n && j >= 0)
+            {
+                int temp = Math.Abs(A[i] + B[j] - C);
+                if (temp <= diff)
+                {
+                    diff = temp;
+                    index1 = Math.Min(i, index1);
+                    index2 = Math.Min(j, index2);
+
+                }
+                if(A[i] + B[j] > C)
+                {
+                    j--;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            return new List<int>() { index1, index2 };
+        }
+
+        public static int Solve4(List<int> A, List<int> B, List<int> C)
+        {
+            int n = A.Count(), m = B.Count(), o = C.Count(),
+            i = 0, j = 0, k = 0, ans = int.MaxValue;
+            while (i < n && j < m && k < o)
+            {
+                int min = Math.Min(A[i], Math.Min(B[j], C[k]));
+                int diff = Math.Abs(Math.Max(A[i], Math.Max(B[j], C[k])) - min);
+               // int diff = Math.Abs(Math.Max(A[i], Math.Max(B[j], C[k])) - Math.Min(A[i], Math.Min(B[j], C[k])));
+                if (diff < ans)
+                {
+                    ans = diff;
+                   
+                }
+                if (A[i] < B[j] && A[i] < C[k])
+                {
+                    i++;
+                }
+                else if (B[j] < A[i] && B[j] < C[k])
+                {
+                    j++;
+                }
+                else
+                {
+                    k++;
+                }
+            }
+            return ans;
+        }
+        public static int ThreeSumClosest(List<int> A, int B)
+        {
+            A.Sort();
+            int n = A.Count(), ans = 100000000;
+            for (int i = 0; i < n; i++)
+            {
+                int j = i, k = n - 1;
+                while (j < n && k > i)
+                {
+                    if (Math.Abs((A[i] + A[j] + A[k] - B)) < Math.Abs(ans - B))
+                    {
+                        ans = A[i] + A[j] + A[k];
+                        j++;
+                    }
+                    else
+                    {
+                        k--;
+                    }
+                }
+            }
+            return ans;
+        }
+
+        /// <summary>
+        /// Sort by Color
+        /// </summary>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public static List<int> SortColors(List<int> A)
+        {
+            int n = A.Count(), i = 0, j = n - 1;
+            for (int k = i + 1; k < j; k++)
+            {
+                if (A[k] != 1)
+                {
+                    if (A[k] == 0)
+                    {
+                        while (A[i] == 0 && i < j)
+                        {
+                            i++;
+                        }
+                        if(k != i && i < j)
+                        {
+                            int temp = A[i];
+                            A[i] = A[k];
+                            A[k] = temp;
+                            
+                        }
+                       
+                    }
+                    else if (A[k] == 2)
+                    {
+                        while (A[j] == 2 && j > i)
+                        {
+                            j--;
+                        }
+                        if(k < j && j > i)
+                        {
+                            int temp = A[j];
+                            A[j] = A[k];
+                            A[k] = temp;
+                            
+                        }
+                        
+                    }
+                }
+            }
+            return A;
+        }
+
+
     }
     
 }

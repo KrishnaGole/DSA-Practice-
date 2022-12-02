@@ -19,7 +19,11 @@ namespace BitwiseOperatorsConsoleApp
             //InterestingArray(new List<int>() { 1 });
             //RepeatAndMissingNumberArray(new List<int>() { 3, 1, 2, 5, 3, });
             //HammingDistance(new List<int>() { 2, 4, 6 });
-            Solve(new List<int>() { 1,2,3,4,5 }, 2);
+            //Solve(new List<int>() { 1,2,3,4,5 }, 2);
+            //SmallestXOR(4, 6);
+            //MaximumSatisfaction(new List<int>() { 1, 18, 15, 16, 7, 127, 3, 83, 31, 23, 31 });
+           int x = StrangeEquality(99);
+           
         }
 
         /// <summary>
@@ -360,5 +364,144 @@ namespace BitwiseOperatorsConsoleApp
             return (int)(count + mod) % mod;
 
         }
+
+        public static int SmallestXOR(int A, int B)
+        {
+
+            int X = 0;
+
+            for (int i = 31; i >= 0; i--)
+            {
+
+                if (B == 0)
+                {
+                    return X;
+                }
+
+              if ((A & (1 << i)) > 0)
+                {
+
+                    X |= (1 << i);
+
+                    B--;
+
+                }
+
+            }
+
+            for (int i = 0; i <= 31; i++)
+            {
+
+                if (B == 0) 
+                    return X;
+
+                if ((A & (1 << i)) == 0)
+                {
+
+                    X |= (1 << i);
+
+                    B--;
+
+                }
+
+            }
+
+            return X;
+
+        }
+
+        public static int MaximumSatisfaction(List<int> A)
+        {
+            int ans = 0, n = A.Count();
+            for (int i = 31; i >= 0; i--)
+            {
+                int count = 0;
+                for (int j = 0; j < n; j++)
+                {
+                    if(count == 4)
+                    {
+                        break;
+                    }
+                    int temp = ans | (1 << i);
+                    if ((temp & A[j]) == temp)
+                    {
+                        count++;
+                    }
+                }
+                if (count == 4)
+                {
+                    ans |= (1 << i);
+                }
+            }
+            return ans;
+        }
+
+        public static int StrangeEquality(int A)
+        {
+            int x = 0, cnt = 0;
+            int temp = A;
+            while (temp > 0)
+            {
+                cnt++;
+                temp /= 2;
+            }
+            for (int i = cnt - 1; i >= 0; i--)
+            {
+                if((A & (1 << i)) == 0)
+                {
+                    x |= (1 << i);
+                }
+            }
+            x = BinaryToDecimal(x);
+            return x ^ (1 << cnt);
+            //double binary = DToB(A), x_binary = 0;
+            //int cnt = 0;
+            //while(binary != 0)
+            //{
+            //    if(binary % 10 == 1)
+            //    {
+            //        x_binary += 0 * (int)Math.Pow(10, cnt);
+            //    }
+            //    else
+            //    {
+            //        x_binary += 1 * (int)Math.Pow(10, cnt);
+            //    }
+            //    cnt++;
+            //    binary /= 10;
+            //}
+            //double x = BinaryToDecimal(x_binary);
+            //double y = (1 << cnt);
+            //return (int)x ^ (int)y;
+            return 12;
+            
+            
+        }
+
+        static int DToB(int num)
+        {
+            double decimalNum = 0;
+            int count = 0;
+            while (num > 0)
+            {
+                decimalNum += (num % 2) * Math.Pow(10, count);
+                count++;
+                num /= 2;
+            }
+            return (int)decimalNum;
+        }
+
+        public static int BinaryToDecimal(double num)
+        {
+            double sum = 0, count = 0;
+            while (num != 0)
+            {
+                sum += (num % 10) * Math.Pow(2, count);
+                count++;
+                num = num / 10;
+            }
+            return (int)sum;
+        }
+
+
     }
 }

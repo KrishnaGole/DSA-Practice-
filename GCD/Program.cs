@@ -12,7 +12,8 @@ namespace GCD
         {
             // Solve(new List<int>() { 3, 9, 6, 8, 3 });
             //GCD1(16, 24);
-            Solve1(new List<int>() { 1, 31, 1, 1, 1, 1, 14, 2, 1, 1, 1, 2, 22, 1, 11, 1, 1, 1, 1, 23, 1, 1, 11, 1, 11 });
+            //Solve1(new List<int>() { 1, 31, 1, 1, 1, 1, 14, 2, 1, 1, 1, 2, 22, 1, 11, 1, 1, 1, 1, 23, 1, 1, 11, 1, 11 });
+            Pubg(new List<int>() { 6,4 });
 
         }
 
@@ -128,6 +129,30 @@ namespace GCD
                 return A;
             }
             return Gcd(B, A % B);
+        }
+
+        public static int Pubg(List<int> arr)
+        {
+            int n = arr.Count(), ans = 0;
+            if(n < 2)
+            {
+                return arr[0];
+            }
+            else if(n == 2)
+            {
+                ans = Gcd(arr[0], arr[1]);
+                return ans;
+            }
+            else
+            {
+                ans = Gcd(arr[0], arr[1]);
+                for (int i = 2; i < n; i++)
+                {
+                    ans = Gcd(ans, arr[i]);
+                }
+            }
+            return ans;
+            
         }
 
 

@@ -74,7 +74,11 @@ namespace SumOfNum
             //    }
             //    Console.Write(str[i] + " ");
             //}
-            
+            List<int> prices = new List<int>() { 3, 2, 1 };
+
+            Console.WriteLine(MaxProfite(prices));
+            Console.ReadLine();
+
         }
 
         public static int Solve(List<int> A, int B)
@@ -714,6 +718,35 @@ namespace SumOfNum
 
             }
             return ans;
+        }
+
+
+        static int MaxProfite(List<int> prices)
+        {
+            if (prices.Count() <= 1)
+            {
+                return 0;
+            }
+            int n = prices.Count();
+            List<int> s0 = new List<int>();
+            List<int> s1 = new List<int>();
+            List<int> s2 = new List<int>();
+            for (int i = 0; i < n; i++)
+            {
+                s0.Add(0);
+                s1.Add(0);
+                s2.Add(0);
+            }
+            s0[0] = 0;
+            s1[0] = int.MinValue;
+            s2[0] = int.MinValue;
+            for (int i = 1; i < prices.Count(); i++)
+            {
+                s0[i] = Math.Max(s0[i - 1], s2[i - 1]);
+                s1[i] = Math.Max(s1[i - 1], s0[i - 1] - prices[i]);
+                s2[i] = s1[i - 1] + prices[i];
+            }
+            return Math.Max(s0[prices.Count() - 1], s2[prices.Count() - 1]);
         }
 
 

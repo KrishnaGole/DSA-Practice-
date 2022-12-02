@@ -35,14 +35,15 @@ namespace AdvanceArray
             //MaxArr(new List<int>() { 1, 3, -1 });
             //PlusOne(new List<int>() { 0, 6, 0, 6, 4, 8, 8, 1 });
             //(1, 10), (2, 9), (3, 8), (4, 7), (5, 6), (6, 6)
-            Merge(new List<Interval>() {
-                new Interval(1,10),new Interval(2,9),new Interval(4,7),new Interval(3,8), new Interval(5,6), new Interval(6,6)});
+            //Merge(new List<Interval>() {
+            //   new Interval(1,10),new Interval(2,9),new Interval(4,7),new Interval(3,8), new Interval(5,6), new Interval(6,6)});
             // Solve(vs, 3);
             //MaxSumSqrSubMatrix(vs, 3);
             //Candy(new List<int>() { 3, 1, 3 });
             //PickFromBothSide(new List<int>() { 5, -2, 3, 1, 2 }, 3);
             //Solve(new List<int>() { 1, 12, 10, 3, 14, 10, 5 }, 8);
-            Solve(new List<int>() { 1, 2, 3, 4, 0 });
+            //Solve(new List<int>() { 1, 2, 3, 4, 0 });
+            Solve1(new List<int>() { 1, 2, 3, 4, 0 });
 
         }
 
@@ -546,6 +547,60 @@ namespace AdvanceArray
                     A[i] = temp;
                     cnt++;
                 }
+            }
+            return cnt;
+        }
+
+        public static int MaximumGap(List<int> A)
+        {
+            int n = A.Count(), ans = 0;
+            List<Tuple<int, int>> tuples = new List<Tuple<int, int>>();
+            for (int i = 0; i < n; i++)
+            {
+                tuples.Add(new Tuple<int, int>(A[i],i));
+            }
+
+           
+            tuples.Sort((Tuple<int,int> a, Tuple<int,int> b) => {
+                return a.Item1 - b.Item1;
+                //if (a.Item1 < b.Item1)
+                //{
+                //    return -1;
+                //}
+                //else if(a.Item1 >  b.Item1)
+                //{
+                //    return 1;
+                //}
+                //return 0;
+            });
+            int min = n;
+            for(int i = 0; i < n; i++)
+            {
+
+                ans = Math.Max(ans, tuples[i].Item2 - min);
+                min = Math.Min(tuples[i].Item2, min);
+               
+            }
+            return ans;
+        }
+
+        /// <summary>
+        /// Max Chunks To Make Sorted
+        /// </summary>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public static int Solve1(List<int> A)
+        {
+            int cnt = 0, ma = 0, i = 0;
+            foreach (int x in A)
+            {
+                ma = Math.Max(ma, x);
+                // checks if the maximum number so far equals the index number
+                if (ma == i)
+                {
+                   cnt += 1;
+                }
+                i += 1;
             }
             return cnt;
         }

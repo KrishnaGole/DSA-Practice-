@@ -18,7 +18,8 @@ namespace MathsCombinatorics
 
             //var ans = Reverse(0, input.Length - 1, new StringBuilder("krishna"));
             //var ans = Solve2(6);
-            var ans = FindRank("view");
+            //var ans = FindRank("view");
+            FindRankWithRepeated("a");
         }
 
         public static int Solve(int N, int R, int P)
@@ -195,6 +196,48 @@ namespace MathsCombinatorics
                 return 1;
             }
             return (A % mod * Fact(A - 1, mod) % mod) % mod;
+
+        }
+
+        public static int FindRankWithRepeated(string A)
+        {
+            long n = A.Length, mod = 1000003, sum = 0;
+            long[] fact = new long[n];
+            fact[0] = 1;
+            for (int i = 1; i < n; i++)
+            {
+                fact[i] = ((fact[i - 1] % mod) * (i % mod)) % mod;
+            }
+            for (int i = 0; i < n; i++)
+            {
+                int count = 0;
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (A[i] > A[j])
+                    {
+                        count++;
+                    }
+                }
+                Dictionary<char, int> map = new Dictionary<char, int>();
+                for (int k = i; k < n; k++)
+                {
+                    if (!map.ContainsKey(A[k])){
+                        map.Add(A[k], 1);
+                    }
+                    else
+                    {
+                        map[A[k]]++;
+                    }
+                }
+                long d = 1;
+                foreach (var keyValue in map)
+                {
+                    d = ((d % mod) * fact[keyValue.Value] % mod) % mod;
+                }
+                sum += count * (fact[n - 1 - i] / d);
+            }
+
+            return (int)((sum + 1) % mod);
 
         }
     }
