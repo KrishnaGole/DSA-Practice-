@@ -12,20 +12,42 @@ namespace LinkedList
       public ListNode next;
       public ListNode(int x) { this.value = x; this.next = null; }
     }
-   
+
+    class ListNode1
+    {
+        public int val;
+        public ListNode1 right, down;
+        public ListNode1(int x)
+        {
+            val = x;
+            right = null;
+            down = null;
+        }
+    }
     internal class Program
     {
         public static ListNode Head = null;
         static void Main(string[] args)
         {
-            ListNode listNode1 = new ListNode(2);
-            listNode1.next = new ListNode(4);
-            listNode1.next.next = new ListNode(3);
+            //ListNode listNode1 = new ListNode(2);
+            //listNode1.next = new ListNode(4);
+            //listNode1.next.next = new ListNode(3);
 
-            ListNode listNode2 = new ListNode(5);
-            listNode2.next = new ListNode(6);
-            listNode2.next.next = new ListNode(4);
-            AddTwoNumbers(listNode1, listNode2);
+            //ListNode listNode2 = new ListNode(5);
+            //listNode2.next = new ListNode(6);
+            //listNode2.next.next = new ListNode(4);
+
+            ListNode1 listNode1 = new ListNode1(2);
+            listNode1.down = new ListNode1(7);
+            listNode1.down.down = new ListNode1(7);
+
+            listNode1.right = new ListNode1(4);
+            listNode1.right.down = new ListNode1(11);
+
+            Flatten(listNode1);
+
+
+            //AddTwoNumbers(listNode1, listNode2);
             // List<List<int>> vs = new List<List<int>>()
             // {
             //     new List<int>(){1, 13, -1},
@@ -304,5 +326,35 @@ namespace LinkedList
             return ans.next;
 
         }
+
+        public static ListNode1 Flatten(ListNode1 root)
+        {
+            List<int> nodes = new List<int>();
+            while (root != null)
+            {
+                nodes.Add(root.val);
+                ListNode1 downNode = root;
+                while (downNode.down != null)
+                {
+                    nodes.Add(downNode.down.val);
+                    downNode.down = downNode.down.down;
+                }
+                root = root.right;
+            }
+            nodes.Sort();
+            root = new ListNode1(0);
+            ListNode1 node = root;
+            int n = nodes.Count;
+            for (int i = 0; i < n; i++)
+            {
+                node.right = new ListNode1(nodes[i]);
+                node = node.right;
+            }
+            root = root.right;
+            return root;
+
+        }
+
+       
     }
 }

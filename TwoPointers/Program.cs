@@ -25,6 +25,9 @@ namespace TwoPointers
             //Solve4(new List<int>() { 1, 4, 5, 8, 10 }, new List<int>() { 6, 9, 15 }, new List<int>() { 2, 3, 6, 6 });
             //ThreeSumClosest(new List<int>() { 2, 1, -9, -7, -8, 2, -8, 2, 3, -8 }, -1);
             //SortColors(new List<int>() { 2, 0, 0, 1, 0, 0, 2, 2, 1, 1, 0, 0, 1, 0, 2, 2 });
+            //Minimize(new List<int>() { 3, 5, 6 }, new List<int>() { 2 }, new List<int>() { 3, 4 });
+            //SamePoint(new List<int>() { -1, 0, 1, 2, 3, 3 }, new List<int>() { 1, 0, 1, 2, 3, 4 });
+            MinWindow("A", "A");
         }
 
         /// <summary>
@@ -343,6 +346,142 @@ namespace TwoPointers
         }
 
 
+        /// <summary>
+        /// Array 3 Pointers
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="C"></param>
+        /// <returns></returns>
+        public static int Minimize(List<int> A, List<int> B, List<int> C)
+        {
+            int i = 0, j = 0, k = 0, n = A.Count(), m = B.Count(), l = C.Count(),
+            ans = int.MaxValue;
+            while (i < n && j < m && k < l)
+            {
+                ans = Math.Min(ans, Math.Max(Math.Abs(A[i] - B[j]),
+                Math.Max(Math.Abs(B[j] - C[k]), Math.Abs(C[k] - A[i]))));
+                if (A[i] < B[j] && A[i] < C[k])
+                {
+                    i++;
+                }
+                else if (B[j] < A[i] && B[j] < C[k])
+                {
+                    j++;
+                }
+                else
+                {
+                    k++;
+                }
+            }
+            return ans;
+        }
+
+        public static int SamePoint(List<int> A, List<int> B)
+        {
+            int n = A.Count(), ans = 0, curmax = 0, overlap = 0;
+            Dictionary<string, int> map = new Dictionary<string, int>();
+            if (n < 3)
+            {
+                return n;
+            }
+            for(int i = 0; i < n; i++)
+            {
+                curmax = 0;
+                overlap = 0;
+                for(int j = i + 1; j < n; j++)
+                {
+                    if (A[i] == A[j] && B[i] == B[j])
+                    {
+                        overlap++;
+                    }
+                    else
+                    {
+                        int xdiff = A[j] - A[i];
+                        int ydiff = B[j] - B[i];
+                        int z = GCD(xdiff, ydiff);
+                        xdiff /= z;
+                        ydiff /= z;
+                        string temp = xdiff + "@" + ydiff;
+                        if(!map.ContainsKey(temp))
+                        {
+                            map.Add(temp, 1);
+                        }
+                        else
+                        {
+                            map[temp]++;
+                        }
+                        curmax = Math.Max(curmax, map[temp]);
+                    }
+                }
+                map.Clear();
+                ans = Math.Max(ans, curmax + overlap + 1);
+            }
+            return ans;
+           
+        }
+        public static int GCD(int x, int y)
+        {
+            if (x == 0)
+            {
+                return y;
+            }
+
+            return GCD(y%x, x);
+        }
+
+        public static string MinWindow(string A, string B)
+        {
+            int n = A.Length, m = B.Length, start = 0, end = 0, total = 0, minLen = n+1, index = -1;
+            bool flag = false;
+            Dictionary<char, int> map = new Dictionary<char, int>();
+            for (int i = 0; i < m; i++)
+            {
+                if (!map.ContainsKey(B[i]))
+                {
+                    map.Add(B[i], 1);
+                }
+                else
+                {
+                    map[B[i]]++;
+                }
+            }
+            //ADOBECODEBANC
+
+            while (end < n)
+            {
+                if (map.ContainsKey(A[end]))
+                {
+                    if (map[A[end]] > 0)
+                    {
+                        total++;
+                    }
+                    map[A[end]]--;
+                }
+                while (total == m)
+                {
+                    if (minLen > end - start + 1)
+                    {
+                        index = start;
+                        minLen = end - start + 1;
+                    }
+                    if (map.ContainsKey(A[start]) && map[A[start]] <= 0)
+                    {
+                        map[A[start]]++;
+                        if (map[A[start]] > 0)
+                        {
+                            total--;
+                        }
+                        
+                    }
+                    start++;
+
+
+                }
+                end++;
+            }
+            return index != -1 ? A.Substring(index, minLen) : string.Empty;
+        }
     }
     
 }
