@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +25,18 @@ namespace LinkedList
             down = null;
         }
     }
+
+    public class ListNode2
+    {
+     public int val;
+     public ListNode2 next;
+     public ListNode2(int val = 0, ListNode2 next = null) 
+     {
+      
+          this.val = val;
+          this.next = next;
+     }
+    }
     internal class Program
     {
         public static ListNode Head = null;
@@ -44,7 +57,7 @@ namespace LinkedList
             listNode1.right = new ListNode1(4);
             listNode1.right.down = new ListNode1(11);
 
-            Flatten(listNode1);
+            //Flatten(listNode1);
 
 
             //AddTwoNumbers(listNode1, listNode2);
@@ -77,6 +90,18 @@ namespace LinkedList
             //print_ll();
             //delete_node(1);
             //print_ll();
+
+            ListNode2 listNode2 = new ListNode2(1);
+            listNode2.next = new ListNode2(2);
+            listNode2.next.next = new ListNode2(4);
+
+            ListNode2 listNode22 = new ListNode2(1);
+            listNode22.next = new ListNode2(3);
+            listNode22.next.next = new ListNode2(4);
+
+            MergeTwoLists(listNode2, listNode22);
+
+            
 
 
         }
@@ -355,6 +380,28 @@ namespace LinkedList
 
         }
 
-       
+        public static ListNode2 MergeTwoLists(ListNode2 list1, ListNode2 list2)
+        {
+            ListNode2 res = new ListNode2();
+            
+            ListNode2 temp = res;
+            while (list1 != null && list2 != null)
+            {
+                
+                if (list1.val < list2.val)
+                {
+                    temp.next = list1;
+                    list1 = list1.next;
+                }
+                else
+                {
+                    temp.next = list2;
+                    list2 = list2.next;
+                }
+                temp = temp.next;
+            }
+            temp.next = (list1 == null) ? list2 : list1;
+            return res;
+        }
     }
 }

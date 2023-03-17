@@ -10,20 +10,55 @@ namespace BinarySearchAndSorting
     {
         static void Main(string[] args)
         {
-            BinarySearchCls binarySearchCls = new BinarySearchCls();
-            List<int> A = new List<int>() { 3, 4, 4, 6 };
-            List<int> B = new List<int>() { 20, 4, 10, 2 };
-            binarySearchCls.solve(A, B);
+            //BinarySearchCls binarySearchCls = new BinarySearchCls();
+            //List<int> A = new List<int>() { 3, 4, 4, 6 };
+            //List<int> B = new List<int>() { 20, 4, 10, 2 };
+            //binarySearchCls.solve(A, B);
+            //SearchInsert(new int[] { 1, 3, 5, 6 }, 2);
             //List<int> vs = new List<int>(1000000);
             //for (int i = 0; i < 10; i++)
             //{
             //    vs.Add(i);
             //}
-
+            ClimbStairs(3);
             //Console.WriteLine(binarySearchCls.IndexOfElement(vs, 3));
             //Sorting sorting = new Sorting();
             //Console.WriteLine(sorting.sqrt1(11));
             Console.ReadLine();
+        }
+
+        public static int SearchInsert(int[] nums, int target)
+        {
+            int n = nums.Length, low = 0, high = n - 1, mid = 0;
+            while (low <= high)
+            {
+                mid = (low + high) / 2;
+                if (nums[mid] == target)
+                {
+                    return mid;
+                }
+                if (nums[mid] < target)
+                {
+                    low = mid + 1;
+                }
+                else
+                {
+                    high = mid - 1;
+                }
+            }
+            return low;
+        }
+
+        public static int ClimbStairs(int n)
+        {
+            int nminusone = 1, nminustwo = 1, total = 0;
+            for (int i = 2; i <= n; i++)
+            {
+                total = nminusone + nminustwo;
+                nminusone = nminustwo;
+                nminustwo = total;
+            }
+            return total;
         }
     }
 
