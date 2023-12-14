@@ -37,12 +37,13 @@ namespace Trees
             //IsSymmetric(treeNode);
             //Solve(treeNode, new List<int>() { 19, 8, 16, 5, 9 });
 
-            //TreeLinkNode treeLinkNode = new TreeLinkNode(1);
-            //treeLinkNode.left = new TreeLinkNode(2);
-            //treeLinkNode.right = new TreeLinkNode(5);
-            //treeLinkNode.left.left = new TreeLinkNode(3);
-            //treeLinkNode.left.right = new TreeLinkNode(4);
-            //treeLinkNode.right.right = new TreeLinkNode(7);
+            TreeLinkNode treeLinkNode = new TreeLinkNode(1);
+            treeLinkNode.left = new TreeLinkNode(2);
+            treeLinkNode.right = new TreeLinkNode(5);
+            treeLinkNode.left.left = new TreeLinkNode(3);
+            treeLinkNode.left.right = new TreeLinkNode(4);
+            treeLinkNode.right.right = new TreeLinkNode(7);
+            LevelOrder(treeNode);
 
             //Connect(treeLinkNode);
 
@@ -249,6 +250,41 @@ namespace Trees
            A.left = prev;
            prev = prev.right;
            InOrder(A.right);
+        }
+
+        public static IList<IList<int>> LevelOrder(TreeNode root)
+        {
+            Queue<TreeNode> queue = new Queue<TreeNode>();
+            IList<IList<int>> ans = new List<IList<int>>();
+            IList<int> temp = new List<int>();
+            queue.Enqueue(root);
+            queue.Enqueue(null);
+            while (queue.Count() > 0)
+            {
+                TreeNode t = queue.Dequeue();
+                if (t == null)
+                {
+                    ans.Add(temp);
+                    temp = new List<int>();
+                    if (queue.Count() > 0)
+                    {
+                        queue.Enqueue(null);
+                    }
+                }
+                else
+                {
+                    temp.Add(t.val);
+                    if (t.left != null)
+                    {
+                        queue.Enqueue(t.left);
+                    }
+                    if (t.right != null)
+                    {
+                        queue.Enqueue(t.right);
+                    }
+                }
+            }
+            return ans;
         }
     }
 

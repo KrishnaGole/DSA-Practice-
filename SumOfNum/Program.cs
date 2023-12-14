@@ -8,9 +8,17 @@ namespace SumOfNum
 {
     internal class Program
     {
+        public class ListNode
+        {
+            public int val;
+            public ListNode next;
+            public ListNode(int x) { this.val = x; this.next = null; }
+        }
+       
         static int[] numbers;
         static void Main(string[] args)
         {
+
 
             //int num1 = Convert.ToInt32(Console.ReadLine());
             //int num2 = Convert.ToInt32(Console.ReadLine());
@@ -74,9 +82,22 @@ namespace SumOfNum
             //    }
             //    Console.Write(str[i] + " ");
             //}
-            List<int> prices = new List<int>() { 3, 2, 1 };
+            //List<int> prices = new List<int>() { 3, 2, 1 };
 
-            Console.WriteLine(MaxProfite(prices));
+            //Console.WriteLine(MaxProfite(prices));
+            //Solve("abdaccc", "baacd");
+            //FindMinimumXOR(9, 3);
+            //Jump(new List<int>() { 7, 1, 3, 4, 1, 7 });
+            //ListNode listNode = new ListNode(1);
+            //listNode.next = new ListNode(3);
+            //listNode.next.next = new ListNode(5);
+            //listNode.next.next.next = new ListNode(3);
+            //Solve(listNode, 5);
+            //Solve(5, new List<string>() { "mmo", "oo", "cmw", "cc", "c" });
+            //Solveq(new List<int>() { 27, 19, 44, 10, 24, 36 }, new List<int>() { 19, 8, 16, 5, 9 });
+            //Solve(new List<int>() { 1, 2, 3, 5, 4, 6, 4, 5, 4, 1, 2, 6, 4, 7, 8, 9, 4, 51, 1, 12 });
+            //Foo(3, 5);
+            Test123();
             Console.ReadLine();
 
         }
@@ -749,8 +770,337 @@ namespace SumOfNum
             return Math.Max(s0[prices.Count() - 1], s2[prices.Count() - 1]);
         }
 
+        public static int Solve(string A, string B)
+        {
+            int[] arr = new int[26];
+            int n = A.Length, m = B.Length;
+            for (int i = 0; i < m; i++)
+            {
+                arr[B[i] - 'a']++;
+            }
+            for (int i = 0; i < n; i++)
+            {
+                arr[A[i] - 'a']--;
+            }
+            for (int i = 0; i < 26; i++)
+            {
+                if (arr[i] > 0)
+                {
+                    return 0;
+                }
+            }
+            return 1;
 
+        }
+
+        static int FindMinimumXOR(int A, int B)
+        {
+            int X = 0;
+            int count = 0;
+
+            for (int i = 31; i >= 0; i--)
+            {
+                int bit = (A >> i) & 1;
+
+                if (bit == 1)
+                {
+                    if (count < B)
+                    {
+                        X |= (1 << i);
+                        count++;
+                    }
+                }
+                else
+                {
+                    if (count >= B)
+                    {
+                        X |= (1 << i);
+                    }
+                }
+            }
+
+            return X;
+        }
+
+        static int CountSetBits(int number)
+        {
+            int count = 0;
+
+            while (number != 0)
+            {
+                if ((number & 1) == 1)
+                    count++;
+
+                number >>= 1;
+            }
+
+            return count;
+        }
+
+         static public int Jump(List<int> A) {
+            int n = A.Count(), ans = int.MaxValue;
+            Dictionary<int, List<int>> dic = new Dictionary<int, List<int>>();
+               
+            for (int i = 0; i < n; i++){
+                if(!dic.ContainsKey(A[i])){
+                    List<int> indexes = new List<int>(){i};
+                    dic.Add(A[i], indexes);
+                }
+                else{
+                    dic[A[i]].Add(i);
+                }
+            }
+
+            foreach (var item in dic)
+            {
+                int size = item.Value.Count;
+                if (size <= 1)
+                {
+                    continue;
+                }
+                else
+                {
+                    ans = Math.Min(ans, Math.Abs(item.Value[size - 1] - item.Value[size - 2]));
+                }
+            }
+            return ans;
+        
+         }
+
+        public static ListNode Solve(ListNode A, int K)
+        {
+            List<KeyValuePair<int, int>> keyValuePair = new List<KeyValuePair<int, int>>();
+            KeyValuePair<int, int> keyValuePair1 = new KeyValuePair<int, int>();
+
+            keyValuePair.Add(new KeyValuePair<int, int>(12, 12));
+            keyValuePair.OrderByDescending(x => x.Key);
+            ListNode current = A;
+
+            while (current != null)
+            {
+                ListNode prev = current;
+                ListNode next = current.next;
+
+                int prevDiff = int.MaxValue;
+                int nextDiff = int.MaxValue;
+
+                if (prev != null)
+                    prevDiff = Math.Abs(K - (prev.val % K));
+
+                if (next != null)
+                    nextDiff = Math.Abs(K - (next.val % K));
+
+                if (prevDiff < nextDiff)
+                    current.val = prev.val + (prev.val % K > 0 ? K - (prev.val % K) : 0);
+                else
+                    current.val = next.val + (next.val % K > 0 ? K - (next.val % K) : 0);
+
+                current = current.next;
+            }
+
+            return A;
+
+        }
+
+        private static ListNode FindClosestMultiple(ListNode node, int target, int B)
+        {
+            ListNode closestMultipleNode = null;
+            int minDifference = int.MaxValue;
+
+            while (node != null)
+            {
+                if (node.val % B == 0)
+                {
+                    return node;
+                }
+
+                int difference = Math.Abs(node.val - target);
+
+                if (difference < minDifference)
+                {
+                    minDifference = difference;
+                    closestMultipleNode = node;
+                }
+
+                node = node.next;
+            }
+
+            return closestMultipleNode;
+        }
+    
+        public static List<int> Solveq(List<int> arr, List<int> B)
+        {
+            List<int> ans = new List<int>();
+            arr.Sort();
+            for (int i = 0; i < B.Count(); i++)
+            {
+                int left = 0, right = arr.Count() - 1, temp = -1;
+                while (left <= right)
+                {
+                    int mid = left + (right - left) / 2;
+                    if (arr[mid] <= B[i])
+                    {
+                        temp = arr[mid];
+                        left = mid + 1;
+                    }
+                    else
+                    {
+                        right = mid - 1;
+                    }
+                }
+                ans.Add(temp);
+            }
+            return arr;
+        }
+
+        public static int Solve(int A, List<string> B)
+        {
+            List<KeyValuePair<int, int>> happiness = new List<KeyValuePair<int, int>>();
+            int n = B.Count(), ans = 0;
+            for (int i = 0; i < n; i++)
+            {
+                string temp = B[i];
+                int sum = 0;
+                for (int j = 0; j < temp.Length; j++)
+                {
+                    if (temp[j] == 'c')
+                    {
+                        sum += 4;
+                    }
+                    else if (temp[j] == 'w')
+                    {
+                        sum += 3;
+                    }
+                    else if (temp[j] == 'm')
+                    {
+                        sum += 2;
+                    }
+                    else if (temp[j] == 'o')
+                    {
+                        sum += 1;
+                    }
+                }
+                sum *= temp.Length;
+                happiness.Add(new KeyValuePair<int, int>(sum, temp.Length));
+            }
+            happiness = happiness.OrderByDescending(pair => pair.Key).ToList();
+            for (int i = 0; i < happiness.Count(); i++)
+            {
+                int C = A;
+                var keyvaluepair = happiness[i];
+                int sum = 0;
+                if (C - keyvaluepair.Value  >= 0)
+                {
+                    sum += keyvaluepair.Key;
+                    C -= keyvaluepair.Value;
+                }
+                else
+                {
+                    continue;
+                }
+                for (int j = i + 1; j < happiness.Count(); j++)
+                {
+                    var pair = happiness[j];
+                    if (C - pair.Value  >= 0)
+                    {
+                        sum += pair.Key;
+                        C -= pair.Value;
+                    }
+                }
+                if(C == 0)
+                {
+                    ans = Math.Max(ans, sum);
+
+                }
+            }
+            return ans;
+        }
+
+        public int black(List<string> A)
+        {
+            if (A == null || A.Count() == 0)
+            {
+                return 0;
+            }
+            int rows = A.Count();
+            int cols = A[0].Length;
+            int count = 0;
+            char[,] charArr = new char[rows,cols];
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    charArr[i,j] = A[i][j];
+
+                }
+            }
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+
+                    if (charArr[i,j] == 'X')
+                    {
+                        count++;
+                        DFS(charArr, i, j, rows, cols);
+                    }
+                }
+            }
+            return count;
+        }
+
+        private void DFS(char[,] A, int row, int col, int rows, int cols)
+        {
+            if (row < 0 || row >= rows || col < 0 || col >= cols || A[row,col] != 'X')
+            {
+                return;
+            }
+            A[row,col] = 'O';
+            DFS(A, row - 1, col, rows, cols);
+            DFS(A, row + 1, col, rows, cols);
+            DFS(A, row, col - 1, rows, cols);
+            DFS(A, row, col + 1, rows, cols);
+        }
+
+        public static int Solve(List<int> A)
+        {
+            int n = A.Count(), ans = 0;
+            int dis = A.Distinct().Count();
+            ans = Math.Abs(dis - n);
+            return ans;
+        }
+        public static int Bar(int x, int y)
+        {
+            if (y == 0)
+            {
+                return 0;
+            }
+            return (x + Bar(x, y - 1));
+        }
+
+        public static int Foo(int x, int y)
+        {
+            if(y == 0)
+            {
+                return 1;
+            }
+            return Bar(x, Foo(x, y - 1));
+        }
+
+        public static void Test123()
+        {
+            int j = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                while (j <= i)
+                {
+                    Console.WriteLine(i+j); 
+                    j++;
+                }
+            }
+            Console.ReadKey();
+        }
     }
 
-    
+
 }

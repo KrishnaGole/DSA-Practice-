@@ -37,7 +37,9 @@ namespace AdvanceStack
             // Solve1(new List<int>() { 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30 });
             // LargestRectangleArea(new List<int>() { 47, 69, 67, 97, 86, 34, 98, 16, 65, 95, 66, 69, 18, 1, 99, 56, 35, 9, 48, 72, 49, 47, 1, 72, 87, 52, 13, 23, 95, 55, 21, 92, 36, 88, 48, 39, 84, 16, 15, 65, 7, 58, 2, 21, 54, 2, 71, 92, 96, 100, 28, 31, 24, 10, 94, 5, 81, 80, 43, 35, 67, 33, 39, 81, 69, 12, 66, 87, 86, 11, 49, 94, 38, 44, 72, 44, 18, 97, 23, 11, 30, 72, 51, 61, 56, 41, 30, 71, 12, 44, 81, 43, 43, 27 });
             //Solve3(new List<int>() { 2, 3, 1, 4 });
-            Solve2(new List<int>() { 4, 7, 3, 8 });
+            //Solve2(new List<int>() { 4, 7, 3, 8 });
+            //Solve(new List<List<int>>() { new List<int>() { 0, 0, 1 }, new List<int>() { 0, 1, 1 } , new List<int>() { 1, 1, 1 } });
+            SumOfSubarrayValues(new List<int>() { 4, 7, 3, 8 });
 
 
 
@@ -541,5 +543,129 @@ namespace AdvanceStack
             return (int)ans;
 
         }
+
+        public static int Solve(List<List<int>> A)
+        {
+            if (A == null || A.Count() == 0)
+            {
+                return 0;
+            }
+            int n = A.Count(), m = A[0].Count();
+            int[] histogram = new int[m];
+            int maxArea = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    if (A[i][j] == 0)
+                    {
+                        histogram[j] = 0;
+                    }
+                    else
+                    {
+                        histogram[j]++;
+                    }
+                }
+                maxArea = Math.Max(maxArea, CalculateMaxArea(histogram));
+            }
+
+            return maxArea;
+
+        }
+
+        static int CalculateMaxArea(int[] heights)
+        {
+            Stack<int> stack = new Stack<int>();
+            int maxArea = 0;
+
+            for (int i = 0; i < heights.Length; i++)
+            {
+                while (stack.Count() > 0 && heights[i] < heights[stack.Peek()])
+                {
+                    int height = heights[stack.Pop()];
+                    int width = i;
+                    if (stack.Count() > 0)
+                    {
+                        width = i - stack.Peek() - 1;
+                    }
+                    maxArea = Math.Max(maxArea, height * width);
+                }
+                stack.Push(i);
+            }
+
+            while (stack.Count() > 0)
+            {
+                int height = heights[stack.Pop()];
+                int width = heights.Length;
+                if (stack.Count() > 0)
+                {
+                    width = heights.Length - stack.Peek() - 1;
+                }
+                maxArea = Math.Max(maxArea, height * width);
+            }
+            return maxArea;
+        }
+
+        public static int SumOfSubarrayValues(List<int> A)
+        {
+            int MOD = 1000000007;
+            int n = A.Count();
+
+            long[] maxCount = new long[n];
+            long[] minCount = new long[n];
+
+            Stack<int> stack = new Stack<int>(); // For storing indices
+
+            // Calculate maxCount array
+            for (int i = 0; i < n; i++)
+            {
+                while (stack.Count > 0 && A[stack.Peek()] < A[i])
+                {
+                    stack.Pop();
+                }
+                if (stack.Count > 0)
+                {
+                    maxCount[i] = maxCount[stack.Peek()] + (i - stack.Peek()) * (long)A[i];
+                }
+                else
+                {
+                    maxCount[i] = (i + 1) * (long)A[i];
+                }
+                stack.Push(i);
+            }
+
+            stack.Clear();
+
+            // Calculate minCount array
+            for (int i = 0; i < n; i++)
+            {
+                while (stack.Count > 0 && A[stack.Peek()] > A[i])
+                {
+                    stack.Pop();
+                }
+                if (stack.Count > 0)
+                {
+                    minCount[i] = minCount[stack.Peek()] + (i - stack.Peek()) * (long)A[i];
+                }
+                else
+                {
+                    minCount[i] = (i + 1) * (long)A[i];
+                }
+                stack.Push(i);
+            }
+
+            long result = 0;
+
+            // Calculate sum of values for all subarrays
+            for (int i = 0; i < n; i++)
+            {
+                result += (maxCount[i] - minCount[i]) % MOD;
+                result %= MOD;
+            }
+
+            return (int)(result % MOD);
+        }
+
     }
 }

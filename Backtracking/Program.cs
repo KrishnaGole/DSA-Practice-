@@ -18,26 +18,35 @@ namespace Backtracking
             //Appoitments.Add(new List<int> { 8, 12 });
             //Appoitments =  Appoitments.OrderBy(a => a[0]).ToList();
             //var result =  SolveNQueens(4);
-            var A = new List<List<int>>()
-           {
-               new List<int>(){ 1, 1, 1 },
-               new List<int>(){ 1, 0, 1 },
-               new List<int>(){ 0, 0, 1 },
+            // var A = new List<List<int>>()
+            //{
+            //    new List<int>(){ 1, 1, 1 },
+            //    new List<int>(){ 1, 0, 1 },
+            //    new List<int>(){ 0, 0, 1 },
 
-           };
-            int n = A.Count(), m = A[0].Count();
-            var pathIndex = new List<KeyValuePair<int, int>>();
-            var path = new List<List<int>>();
-            for(int i = 0; i < n; i++)
-            {
-                path.Add(new int[m].ToList());
-            }
-            
-            Path(A, n, m, 0, 0, pathIndex, path);
-            path[n - 1][m - 1] = 1;
-            
+            //};
+            // int n = A.Count(), m = A[0].Count();
+            // var pathIndex = new List<KeyValuePair<int, int>>();
+            // var path = new List<List<int>>();
+            // for(int i = 0; i < n; i++)
+            // {
+            //     path.Add(new int[m].ToList());
+            // }
 
-           
+            // Path(A, n, m, 0, 0, pathIndex, path);
+            // path[n - 1][m - 1] = 1;
+            List<List<int>> ans = new List<List<int>>();
+            List<int> permutations = new List<int>();
+            List<int> A = new List<int>() { 0,0,0,1,9 };
+            bool[] visited = new bool[A.Count()];
+            A.Sort();
+            Backtrack(ans, permutations, A, visited, 0);
+            //return ans;
+            ans.Distinct();
+
+
+
+
 
 
 
@@ -246,6 +255,25 @@ namespace Backtracking
             }
         }
 
-
+        static void Backtrack(List<List<int>> ans, List<int> permutations, List<int> A, bool[] visited, int index)
+        {
+            if (index == A.Count())
+            {
+                ans.Add(new List<int>(permutations));
+                return;
+            }
+            for (int i = 0; i < A.Count(); i++)
+            {
+                if (visited[i])
+                {
+                    continue;
+                }
+                permutations.Add(A[i]);
+                visited[i] = true;
+                Backtrack(ans, permutations, A, visited, index + 1);
+                permutations.RemoveAt(permutations.Count() - 1);
+                visited[i] = false;
+            }
+        }
     }
 }

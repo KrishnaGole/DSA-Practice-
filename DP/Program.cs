@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DP
 {
@@ -39,12 +43,46 @@ namespace DP
             //List<int> B = new List<int>() { 60, 100, 120 };
             ////Solve(A, B, 50);
             //Coinchange2(new List<int>() { 4,5,6 }, 12);
-            List<int> vs1 = new List<int>() { 45, 17, 34, 27, 12, 22 };
+            //List<int> vs1 = new List<int>() { 45, 17, 34, 27, 12, 22 };
             //Solve(vs1);
             //ChordCnt(3);
-            Knapsack2(new List<int>() { 6, 10, 12 }, new List<int>() { 10, 20, 30 }, 50);
-           
-            
+            //Knapsack2(new List<int>() { 6, 10, 12 }, new List<int>() { 10, 20, 30 }, 50);
+            //int i = Solve1(3);
+
+            //LengthOfLIS(new List<int>() { 5, 6, 3, 7, 9 });
+            Solve("pvgcuhrydk");
+
+
+
+
+        }
+        public static string Solve(string A)
+        {
+            string ans = string.Empty;
+            Dictionary<char, int> map = new Dictionary<char, int>();
+            for (int i = 0; i < A.Length; i++)
+            {
+                if (!map.ContainsKey(A[i]))
+                {
+                    map[A[i]] = 1;
+                }
+                else
+                {
+                map[A[i]]++;
+
+                }
+            }
+            map = map.OrderByDescending(x => x.Value).ThenBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+            foreach (var item in map)
+            {
+                int cnt = item.Value;
+                while (cnt > 0)
+                {
+                    ans += item.Key;
+                    cnt--;
+                }
+            }
+            return ans;
         }
         public static int Solve(string A, string B)
         {
@@ -461,6 +499,122 @@ namespace DP
             }
             return 0;
         }
+
+        //Find the number of ways you can have fun in A integer days, given you can sleep every day, Pizza can be eaten every alternate day and you can watch Tv shows every two days.
+        //Since the answer could be large, return answer % 109 + 7.
+        //input A = 2
+        //output 7
+        //There will be 7 ways to have fun:(SS), (SP), (ST), (PS), (PT), (TS), (TP).
+        public static int Solve1(int A)
+        {
+               int mod = 1000000007;
+            int[,] dp = new int[A + 1, 3];
+            dp[0, 0] = 1;
+                for (int i = 1; i   <= A; i++)
+            {
+                dp[i, 0] = ((dp[i - 1, 0] % mod) + (dp[i - 1, 1] % mod) + (dp[i - 1, 2] % mod)) % mod;
+                dp[i, 1] = ((dp[i - 1, 0] % mod) + (dp[i - 1, 2] % mod)) % mod;
+                dp[i, 2] = ((dp[i - 1, 0] % mod) + (dp[i - 1, 1] % mod)) % mod;
+                }
+                return ((dp[A, 0] % mod) + (dp[A, 1] % mod) + (dp[A, 2] % mod)) % mod;
+        }
+
+        //You are given an array A. You need to find the length of the Longest Increasing Subsequence in the array.
+        //In other words, you need to find a subsequence of array A in which the elements are in sorted order, (strictly increasing) and as long as possible.
+        public static int LengthOfLIS(List<int> nums)
+        {
+            int n = nums.Count();
+            if (n == 0)
+                return 0;
+
+            List<int> lis = new List<int>();
+            lis.Add(nums[0]);
+
+            for (int i = 1; i < n; i++)
+            {
+                if (nums[i] > lis[lis.Count - 1])
+                {
+                    lis.Add(nums[i]);
+                }
+                else
+                {
+                    int index = BinarySearch(lis, nums[i]);
+                    lis[index] = nums[i];
+                }
+            }
+
+            return lis.Count;
+        }
+
+        private static int BinarySearch(List<int> lis, int target)
+        {
+            int left = 0;
+            int right = lis.Count - 1;
+
+            while (left <= right)
+            {
+                int mid = left + (right - left) / 2;
+
+                if (lis[mid] == target)
+                    return mid;
+                else if (lis[mid] < target)
+                    left = mid + 1;
+                else
+                    right = mid - 1;
+            }
+
+            return left;
+        }
+
+        public static int MinDistance(string A, string B)
+        {
+            Dictionary<char, int> mapA = new Dictionary<char, int>();
+            Dictionary<char, int> mapB = new Dictionary<char, int>();
+            int cnt = 0;
+
+            for (int i = 0; i < A.Length; i++)
+            {
+                if (mapA.ContainsKey(A[i]))
+                {
+                    mapA[A[i]]++;
+                }
+                else
+                {
+                    mapA.Add(A[i], 1);
+                }
+            }
+            for (int i = 0; i < B.Length; i++)
+            {
+                if (mapB.ContainsKey(B[i]))
+                {
+                    mapB[B[i]]++;
+                }
+                else
+                {
+                    mapB.Add(B[i], 1);
+                }
+            }
+            foreach (var item in mapA)
+            {
+                if (mapB.ContainsKey(item.Key) && mapB[item.Key] != item.Value)
+                {
+                    cnt += Math.Abs(mapB[item.Key] - item.Value);
+                }
+                else if (!mapB.ContainsKey(item.Key))
+                {
+                    cnt++;
+                }
+            }
+            if (A.Distinct().Count() < B.Distinct().Count())
+            {
+                cnt += Math.Abs(A.Length - B.Length);
+            }
+
+            return cnt;
+
+        }
+
+
 
     }
 }
