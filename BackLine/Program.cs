@@ -26,7 +26,15 @@ internal class Program
         //    new char[] { 'A', 'D', 'E', 'F' }
         //}, "ABCCED");
         //CoinChange(new int[] { 1, 2, 5 }, 11);
-        LengthOfLongestSubstring("pwwkew");
+        //LengthOfLongestSubstring("pwwkew");
+        //NumSpecial(new int[][]
+        //{
+        //    new int[] { 1, 0, 0 },
+        //    new int[] { 0, 1, 0 },
+        //    new int[] { 0, 0, 1 }
+        //});
+        //MaxProduct(new int[] { 3, 4, 5, 2 });
+        IsAnagram("rat", "car");
 
 
 
@@ -461,6 +469,84 @@ internal class Program
             }
         }
         return ans;
+    }
+
+    public static int NumSpecial(int[][] mat)
+    {
+        int n = mat.Length, m = mat[0].Length, cnt = 0;
+        int[] rows = new int[n];
+        int[] cols = new int[m];
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+                rows[i] += mat[i][j];
+                cols[j] += mat[i][j];
+            }
+        }
+       for(int i = 0; i < n; i++)
+       {
+            if (rows[i] == 1)
+            {
+                for(int j = 0; j < m; j++)
+                {
+                    if (mat[i][j] == 1 && cols[j] == 1)
+                    {
+                        cnt++;
+                    }
+                }
+           }
+       }
+       return cnt;
+    }
+
+    public static int MaxProduct(int[] nums)
+    {
+        int num1 = 0, num2 = 0;
+        for (int i = 0; i < nums.Length; i++)
+        {
+            if (nums[i] > num1 || nums[i] > num2)
+            {
+                num1 = Math.Max(num1, num2);
+                num2 = nums[i];
+            }
+        }
+        return --num1 * --num2;
+    }
+
+    public static bool IsAnagram(string s, string t)
+    {
+        Dictionary<char, int> map = new Dictionary<char, int>();
+        for (int i = 0; i < s.Length; i++)
+        {
+            if (map.ContainsKey(s[i]))
+            {
+                map[s[i]]++;
+            }
+            else
+            {
+                map.Add(s[i], 1);
+            }
+        }
+        for (int i = 0; i < t.Length; i++)
+        {
+            if (!map.ContainsKey(t[i]) || (map.ContainsKey(t[i]) && map[t[i]] <= 0))
+            {
+                return false;
+            }
+            else
+            {
+                map[t[i]]--;
+            }
+        }
+        foreach (var keyValue in map)
+        {
+            if (keyValue.Value > 0)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
 

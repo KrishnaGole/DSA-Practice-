@@ -91,7 +91,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Questions", "DoesAsyncUseTh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrieConsoleApp", "TrieConsoleApp\TrieConsoleApp.csproj", "{A98B358E-7E03-4FF6-B4D7-471896B36C41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackLine", "BackLine\BackLine.csproj", "{B48FEB3A-54F9-41A5-972A-129B838BFC91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackLine", "BackLine\BackLine.csproj", "{B48FEB3A-54F9-41A5-972A-129B838BFC91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeetCodeDesignDSAQuestions", "LeetCodeDesignDSAQuestions\LeetCodeDesignDSAQuestions.csproj", "{C1B6B1A8-592C-489E-9C33-B76C578EE854}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -279,6 +281,10 @@ Global
 		{B48FEB3A-54F9-41A5-972A-129B838BFC91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B48FEB3A-54F9-41A5-972A-129B838BFC91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B48FEB3A-54F9-41A5-972A-129B838BFC91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1B6B1A8-592C-489E-9C33-B76C578EE854}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1B6B1A8-592C-489E-9C33-B76C578EE854}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1B6B1A8-592C-489E-9C33-B76C578EE854}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1B6B1A8-592C-489E-9C33-B76C578EE854}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

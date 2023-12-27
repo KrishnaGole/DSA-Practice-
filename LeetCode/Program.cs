@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LeetCode
@@ -21,10 +22,11 @@ namespace LeetCode
     }
     internal class Program
     {
-        static void Main(string[] args)
+        const int mod = 1000000007;
+        static async Task Main(string[] args)
         {
-            Cat cat = new Cat();
-            cat.MakeSound();
+            //Cat cat = new Cat();
+            //cat.MakeSound();
             //SumSubarrayMins(new int[] { 4, 7, 3, 8 });
             //Animal animal = new Animal();
             //animal.MakeSound();
@@ -57,12 +59,33 @@ namespace LeetCode
             //MajorityElement(new int[] { 2, 2, 1, 1, 1, 2, 2 });
             //TitleToNumber("AB");
             //FizzBuzz(15);
-            
-            
+            //IsExists();
 
 
-
+            //using(var cts = new CancellationTokenSource(10000))
+            //{
+            //    Task func1Task = Func1();
+            //    Task func2Task = Func2(cts.Token);
+            //    Task winner = await Task.WhenAny(func1Task, func2Task);
+            //    if (winner == func1Task)
+            //    {
+            //        Console.WriteLine("Func 1 is winner");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("Func 2 is winner");
+            //    }
+            //}
+            //ImageSmoother(ImageSmoother(new int[][] { new int[] { 1, 1, 1 }, new int[] { 1, 0, 1 }, new int[] { 1, 1, 1 } }));
+            //BuyChoco(new int[] { 98, 54, 6, 34, 66, 63, 52, 39 }, 62);
+            //MaxWidthOfVerticalArea(new int[][] { new int[] { 8, 7 }, new int[] { 9, 9 }, new int[] { 7, 4 }, new int[] { 9, 7 } });
+            //IsPathCrossing("NESWW");
+            //MinOperations("10010100");
+            //NumRollsToTarget(2, 6, 7);
+            MinCost("aabaa", new int[] { 1, 2, 3, 4, 1 });
+            Console.ReadLine();
             
+
         }
         public int Solve123(string A, string B)
         {
@@ -614,6 +637,222 @@ namespace LeetCode
             return result;
         }
 
+        ////a b c d t e
+        ////z c d e e s
+        ////c a c d a t
+        ////2d char array and a string check string exists in 2d array
+        //static int cnt = 0;
+        //public static bool IsExists()
+        //{
+        //    char[,] arr1 = new char[3, 6] { { 'a' ,'b', 'c', 'd','t', 'e' }, { 'z', 'c', 'd' ,'e', 'e', 's' } , { 'c', 'a', 'c', 'd', 'a', 't' } };
+
+        //    return IsExists(arr1, "test", 3, 6, 0, 0, 0);
+        //} 
+
+        //private static bool IsExists(char[,] arr, string str, int n, int m, int i, int j, int k)
+        //{
+        //    if(i >= n - 1 ||  j >= m - 1|| k >= str.Length - 1)
+        //    {
+        //        return false;
+        //    }
+        //    if(arr[i, j] == str[k])
+        //    {
+        //        cnt++;
+        //    }
+        //    if(cnt == str.Length)
+        //    {
+        //        return true;
+        //    }
+        //   return IsExists(arr, str, n, m, i+1, j, k++)||
+        //    IsExists(arr, str, n, m, i, j+1, k++) ||
+        //    IsExists(arr, str, n, m, i+1, j+1, k++) ||
+        //    IsExists(arr, str, n, m, i-1, j-1, k++);
+        //}
+        public static async Task Func1()
+        {
+            await Task.Delay(10000);
+            Console.WriteLine("Func1 completed ");
+        }
+
+        public static async Task Func2(CancellationToken cancellationToken)
+        {
+            try
+            {
+                await Task.Delay(20000, cancellationToken);
+                Console.WriteLine("Func2 completed ");
+            }
+            catch (TaskCanceledException) {
+                Console.WriteLine("Func2 was cancelled ");
+            }
+           
+        }
+
+        public static int[][] ImageSmoother(int[][] img)
+        {
+            int rows = img.Length, cols = img[0].Length;
+            int[][] res = new int[rows][];
+
+            for (int row = 0; row < rows; row++)
+            {
+                res[row] = new int[cols];
+                for (int col = 0; col < cols; col++)
+                {
+                    int total = 0, cnt = 0;
+                    for (int i = row - 1; i <= row + 1; i++)
+                    {
+                        for (int j = col - 1; j <= col + 1; j++)
+                        {
+                            if (i < 0 || i == rows || j < 0 || j == cols)
+                            {
+                                continue;
+                            }
+                            total += img[i][j];
+                            cnt++;
+                        }
+                    }
+                    res[row][col] = total / cnt;
+                }
+            }
+            return res;
+        }
+
+        public static int BuyChoco(int[] prices, int money)
+        {
+            Array.Sort(prices);
+            int i = 0;
+            int j = prices.Length - 1;
+
+            while (i < j)
+            {
+                if (prices[i] + prices[j] <= money)
+                {
+                    money -= prices[i] + prices[j];
+                    return money;
+                }
+                j--;
+            }
+
+            return money;
+
+        }
+
+        public static int MaxWidthOfVerticalArea(int[][] points)
+        {
+            int ans = 0;
+            Array.Sort(points, (a, b) => a[0].CompareTo(b[0]));
+            for (int i = 1; i < points.Length; i++)
+            {
+                ans = Math.Max(ans, points[i][0] - points[i - 1][0]);
+            }
+            return ans;
+        }
+
+        public static bool IsPathCrossing(string path)
+        {
+            int x = 0, y = 0;
+            HashSet<string> set = new HashSet<string>();
+            for (int i = 0; i < path.Length; i++)
+            {
+                if (path[i] == 'N')
+                {
+                    y++;
+                }
+                else if (path[i] == 'S')
+                {
+                    y--;
+                }
+                else if (path[i] == 'E')
+                {
+                    x++;
+                }
+                else
+                {
+                    x--;
+                }
+                string cord = $"{x},{y}";
+                if (set.Contains(cord))
+                {
+                    return true;
+                }
+                else
+                {
+                    set.Add(cord);
+                }
+            }
+            return false;
+        }
+
+        public static int MinOperations(string s)
+        {
+            int res = 0, n = s.Length;
+            for(int i = 0; i < n; i++)
+            {
+                if (s[i] - '0' != i % 2)
+                {
+                    res++;
+                }
+            }
+            return Math.Min(res, n - res);
+        }
+
+        public static int NumRollsToTarget(int n, int k, int target)
+        {
+            int[,] dp = new int[n + 1, target + 1];
+            for (int i = 0; i < dp.GetLength(0); i++)
+            {
+                for (int j = 0; j < dp.GetLength(1); j++)
+                {
+                    dp[i, j] = -1;
+                }
+            }
+            return Solve(dp, 0, target, n, k);
+        }
+        private static int Solve(int[,] dp, int diceIndex, int remTarget, int n, int k)
+        {
+            if (diceIndex == n)
+            {
+                return remTarget == 0 ? 1 : 0;
+            }
+            if (remTarget < 0)
+            {
+                return 0;
+            }
+            if (dp[diceIndex, remTarget] != -1)
+            {
+                return dp[diceIndex, remTarget];
+            }
+            int ans = 0;
+            for (int face = 1; face <= k; face++)
+            {
+                ans += Solve(dp, ++diceIndex, remTarget - face, n, k);
+                ans %= mod;
+            }
+            return dp[diceIndex, remTarget] = ans % mod;
+        }
+
+        //aabaa
+        public static int MinCost(string colors, int[] neededTime)
+        {
+            int ans = 0, n = colors.Length, max = neededTime[0], total = neededTime[0];
+            char prev = colors[0];
+            for (int i = 1; i < n; i++)
+            {
+                if (prev == colors[i])
+                {
+                    total += neededTime[i];
+                    max = Math.Max(max, neededTime[i]);
+                }
+                else
+                {
+                    ans += total - max;
+                    total = neededTime[i];
+                    max = neededTime[i];
+                    prev = colors[i];
+                }
+            }
+            ans += total - max;
+            return ans;
+        }
 
     }
 
